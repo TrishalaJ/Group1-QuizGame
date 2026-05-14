@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phishing Awareness Training</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#1D9E75;--teal-lt:#E1F5EE;--teal-dk:#085041;
+  --blue:#378ADD;--blue-lt:#E6F1FB;--blue-dk:#0C447C;
+  --coral:#D85A30;--coral-lt:#FAECE7;--coral-dk:#712B13;
+  --amber-lt:#FAEEDA;--amber-bdr:#EF9F27;--amber-txt:#633806;
+  --gray50:#F1EFE8;--gray100:#D3D1C7;--gray200:#B4B2A9;
+  --gray400:#888780;--gray600:#5F5E5A;--gray800:#444441;
+  --red-lt:#FCEBEB;--red:#E24B4A;--red-dk:#791F1F;
+  --bg:#F5F4F0;--surface:#fff;
+  --text:#1a1a18;--muted:#888780;
+  --border:rgba(0,0,0,.09);--border2:rgba(0,0,0,.17);
+  --r:14px;--rsm:9px;
+  --shadow:0 2px 16px rgba(0,0,0,.07);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.65;}
+.app{max-width:740px;margin:0 auto;padding:20px 18px 80px;}
+
+/* HEADER */
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.brand{display:flex;align-items:center;gap:9px;}
+.brand-icon{width:32px;height:32px;background:var(--text);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.brand-icon svg{fill:#fff;}
+.brand-name{font-family:'DM Serif Display',serif;font-size:16px;}
+.phase-tag{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;padding:4px 11px;border-radius:99px;letter-spacing:.4px;transition:background .3s,color .3s;white-space:nowrap;}
+
+/* PROGRESS */
+.prog-area{margin-bottom:24px;}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px;font-family:'JetBrains Mono',monospace;}
+.prog-track{height:4px;background:var(--gray100);border-radius:99px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:99px;transition:width .45s ease,background .3s;}
+.step-dots{display:flex;gap:2px;margin-top:8px;flex-wrap:wrap;}
+.step-dot{height:3px;flex:1;min-width:2px;border-radius:99px;background:var(--gray100);transition:background .3s;}
+.step-dot.done{background:var(--teal);}
+.step-dot.active{background:var(--text);}
+.step-dot.qdone{background:var(--blue);}
+.step-dot.qactive{background:var(--blue);}
+
+/* SCREENS */
+.screen{display:none;}
+.screen.active{display:block;animation:fadeIn .26s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;border-radius:var(--rsm);font-size:14px;font-weight:500;border:none;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.btn-dark{background:var(--text);color:#fff;}
+.btn-dark:hover{opacity:.85;}
+.btn-outline{background:var(--surface);color:var(--text);border:1.5px solid var(--border2);}
+.btn-outline:hover{border-color:var(--text);}
+.btn-teal{background:var(--teal);color:#fff;}
+.btn-teal:hover{background:var(--teal-dk);}
+.btn-red{background:var(--red);color:#fff;}
+.btn-red:hover{background:var(--red-dk);}
+.btn-sm{padding:8px 15px;font-size:13px;}
+.btn:disabled{opacity:.3;cursor:not-allowed;}
+
+/* WELCOME */
+.welcome{text-align:center;padding:20px 14px;}
+.hero-illo{margin:0 auto 20px;padding:0 10px;}
+.welcome h1{font-family:'DM Serif Display',serif;font-size:34px;letter-spacing:-1px;line-height:1.15;margin-bottom:20px;}
+.welcome>p{font-size:15px;color:var(--gray600);max-width:460px;margin:0 auto 22px;}
+.notice{background:var(--amber-lt);border:1px solid var(--amber-bdr);border-radius:var(--rsm);padding:11px 15px;font-size:13px;color:var(--amber-txt);margin:0 auto 22px;text-align:left;max-width:580px;line-height:1.6;}
+
+/* FLOW DIAGRAM */
+.flow-wrap{margin-bottom:24px;}
+.flow-level{display:flex;align-items:stretch;gap:0;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:8px;}
+.fl-label{background:var(--gray800);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;writing-mode:vertical-rl;text-orientation:mixed;padding:12px 8px;display:flex;align-items:center;justify-content:center;letter-spacing:.5px;flex-shrink:0;}
+.fl-label.l1{background:var(--teal-dk);}
+.fl-label.l2{background:var(--blue-dk);}
+.fl-label.l3{background:var(--coral-dk);}
+.fl-sections{display:flex;flex:1;flex-wrap:wrap;}
+.fl-section{display:flex;align-items:center;padding:8px 0;flex:1;min-width:0;}
+.fl-block{border-radius:6px;padding:7px 10px;font-size:11px;font-weight:500;font-family:'JetBrains Mono',monospace;text-align:center;line-height:1.4;white-space:nowrap;}
+.fl-block.cards{background:var(--teal-lt);color:var(--teal-dk);}
+.fl-block.quiz{background:var(--blue-lt);color:var(--blue-dk);}
+.fl-block small{display:block;font-size:9px;opacity:.75;margin-top:1px;}
+.fl-arr{color:var(--gray200);font-size:14px;padding:0 4px;flex-shrink:0;}
+
+/* PASS TABLE */
+.pass-table{width:100%;max-width:500px;margin:0 auto 28px;border-collapse:collapse;font-size:13px;}
+.pass-table th{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.5px;color:var(--muted);text-align:left;padding:6px 10px;border-bottom:1px solid var(--border2);}
+.pass-table td{padding:8px 10px;border-bottom:1px solid var(--border);}
+.pass-table tr:last-child td{border-bottom:none;}
+.pass-pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;}
+.pass-pill.l1{background:var(--teal-lt);color:var(--teal-dk);}
+.pass-pill.l2{background:var(--blue-lt);color:var(--blue-dk);}
+.pass-pill.l3{background:var(--coral-lt);color:var(--coral-dk);}
+
+/* PHASE BANNER */
+.phase-banner{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);}
+.phase-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.phase-icon svg{fill:currentColor;}
+.phase-banner h3{font-size:14px;font-weight:600;margin-bottom:2px;}
+.phase-banner p{font-size:12px;color:var(--muted);}
+
+/* SECTION BREADCRUMB */
+.sec-crumb{display:flex;align-items:center;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+.sec-crumb-item{font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 9px;border-radius:99px;border:1px solid var(--border2);color:var(--muted);}
+.sec-crumb-item.active{background:var(--text);color:#fff;border-color:var(--text);}
+.sec-crumb-item.done{background:var(--teal-lt);color:var(--teal-dk);border-color:var(--teal);}
+.sec-crumb-sep{color:var(--gray200);font-size:12px;}
+
+/* FLASHCARD */
+.fc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.fc-nav-label{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.card-shell{margin-bottom:20px;}
+.flip-wrap{perspective:1200px;cursor:pointer;width:100%;}
+.flip-card{
+  display:grid;grid-template-columns:1fr;
+  transform-style:preserve-3d;
+  transition:transform .52s cubic-bezier(.4,0,.2,1);
+  width:100%;
+}
+.flip-card.flipped{transform:rotateY(180deg);}
+.fc-face{
+  grid-row:1;grid-column:1;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);box-shadow:var(--shadow);
+  display:flex;flex-direction:column;
+  padding:36px 40px;min-height:220px;
+}
+.fc-front-face{align-items:center;justify-content:center;text-align:center;}
+.fc-back-face{transform:rotateY(180deg);align-items:flex-start;text-align:left;}
+.stg-chip{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.9px;text-transform:uppercase;margin-bottom:16px;flex-shrink:0;}
+.card-title-front{font-family:'DM Serif Display',serif;font-size:26px;line-height:1.35;text-align:center;color:var(--text);}
+.tap-hint{font-size:12px;color:var(--muted);margin-top:24px;font-family:'JetBrains Mono',monospace;flex-shrink:0;}
+.read-label{font-size:11px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;font-family:'JetBrains Mono',monospace;flex-shrink:0;}
+.read-body{font-size:15px;line-height:1.8;color:var(--gray800);width:100%;}
+.read-body ul{list-style:none;margin:10px 0 10px;}
+.read-body ul li{padding-left:20px;position:relative;margin-bottom:7px;}
+.read-body ul li::before{content:"—";position:absolute;left:0;color:var(--muted);}
+.read-body .bullet-tail{display:block;margin-top:10px;}
+.fc-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.fc-dots{display:flex;gap:5px;align-items:center;flex-wrap:wrap;}
+.fc-dot{width:7px;height:7px;border-radius:50%;background:var(--gray200);transition:all .2s;flex-shrink:0;}
+.fc-dot.seen{background:var(--teal);}
+.fc-dot.cur{width:18px;border-radius:4px;background:var(--text);}
+.fc-tip{font-size:12px;color:var(--muted);text-align:center;margin-top:14px;}
+
+/* QUIZ */
+.q-section-lbl{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.q-counter{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:9px;}
+.q-text{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.45;}
+.opts{display:flex;flex-direction:column;gap:9px;margin:20px 0 6px;}
+.opt{display:flex;align-items:flex-start;gap:13px;background:var(--surface);border:1.5px solid var(--border2);border-radius:var(--rsm);padding:13px 15px;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;text-align:left;transition:all .15s;color:var(--text);width:100%;line-height:1.55;}
+.opt:hover:not(:disabled){border-color:var(--text);background:var(--gray50);}
+.opt:disabled{cursor:default;}
+.opt.correct{border-color:var(--teal);background:var(--teal-lt);}
+.opt.wrong{border-color:var(--red);background:var(--red-lt);}
+.opt.dim{opacity:.32;}
+.opt-ltr{width:26px;height:26px;flex-shrink:0;border:1.5px solid var(--border2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--muted);font-family:'JetBrains Mono',monospace;transition:all .15s;margin-top:1px;}
+.opt.correct .opt-ltr{background:var(--teal);border-color:var(--teal);color:#fff;}
+.opt.wrong   .opt-ltr{background:var(--red); border-color:var(--red); color:#fff;}
+.feedback{border-radius:var(--r);padding:16px 18px;margin:6px 0 18px;display:none;animation:slideUp .26s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.feedback.ok{background:var(--teal-lt);border-left:4px solid var(--teal);}
+.feedback.ko{background:var(--red-lt); border-left:4px solid var(--red);}
+.fb-lbl{font-size:11px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;margin-bottom:6px;font-family:'JetBrains Mono',monospace;}
+.feedback.ok .fb-lbl{color:var(--teal-dk);}
+.feedback.ko .fb-lbl{color:var(--red-dk);}
+.fb-txt{font-size:14px;line-height:1.64;color:var(--gray600);}
+.q-nav{display:flex;justify-content:flex-end;}
+
+/* MESSAGE CONTEXT BOX (shown above ambiguous questions) */
+.msg-box{background:#fff;border:1.5px solid var(--border2);border-radius:var(--rsm);padding:14px 16px;margin:12px 0 18px;font-size:14px;line-height:1.6;color:var(--text);position:relative;}
+.msg-box-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.msg-box.sms{background:#f0f4ff;border-color:#b5c8f5;}
+.msg-box .sms-bubble{background:#e8edff;border-radius:10px 10px 10px 2px;padding:10px 14px;display:inline-block;max-width:90%;font-size:14px;line-height:1.55;color:#1a1a18;margin-top:4px;}
+.msg-box.email{background:#fdfcf8;border-color:var(--border2);}
+.msg-box .email-field{font-size:12px;color:var(--muted);margin-bottom:3px;}
+.msg-box .email-field span{color:var(--text);font-weight:500;}
+.msg-box .email-body{font-size:14px;line-height:1.6;color:var(--text);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
+.multi-note{font-size:12px;color:var(--blue-dk);background:var(--blue-lt);border-radius:var(--rsm);padding:7px 12px;margin:4px 0 16px;font-family:'JetBrains Mono',monospace;letter-spacing:.2px;}
+.nav-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.btn-ghost{background:none;border:1.5px solid var(--border2);color:var(--gray600);border-radius:var(--rsm);padding:7px 14px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:6px;transition:all .15s;}
+.btn-ghost:hover{border-color:var(--text);color:var(--text);}
+.btn-ghost.exit-btn{border-color:var(--border2);color:var(--gray400);}
+.btn-ghost.exit-btn:hover{border-color:var(--red);color:var(--red);}
+
+/* EXIT CONFIRM MODAL */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:999;}
+.modal-backdrop.open{display:flex;animation:fadeIn .2s ease;}
+.modal-box{background:var(--surface);border-radius:var(--r);padding:28px 28px 24px;max-width:360px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,.18);text-align:center;}
+.modal-box h3{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:10px;}
+.modal-box p{font-size:14px;color:var(--gray600);margin-bottom:22px;line-height:1.6;}
+.modal-actions{display:flex;gap:10px;justify-content:center;}
+
+
+/* SECTION DONE (between sub-sections within a level) */
+.section-done{text-align:center;padding:48px 20px;}
+.sd-ring{width:72px;height:72px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:26px;}
+.section-done h2{font-family:'DM Serif Display',serif;font-size:24px;margin-bottom:8px;}
+.section-done .sd-score{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--gray600);margin-bottom:22px;}
+.sd-next{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;max-width:360px;margin:0 auto 26px;text-align:left;}
+.sd-next .pre-label{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:.6px;text-transform:uppercase;margin-bottom:6px;}
+.sd-next h4{font-size:15px;font-weight:600;margin-bottom:3px;}
+.sd-next p{font-size:13px;color:var(--gray600);}
+
+/* BRIDGE */
+.bridge{text-align:center;padding:44px 20px;}
+.bridge-icon{font-size:52px;margin-bottom:18px;}
+.bridge h2{font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:10px;}
+.bridge p{font-size:15px;color:var(--gray600);max-width:400px;margin:0 auto 16px;}
+.score-strip{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:24px;flex-wrap:wrap;}
+.score-chip{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:7px 16px;font-size:13px;}
+.score-chip .sc-n{font-weight:600;font-size:15px;}
+.pass-chip{padding:5px 14px;border-radius:99px;font-size:12px;font-weight:600;font-family:'JetBrains Mono',monospace;}
+.pass-chip.passed{background:var(--teal-lt);color:var(--teal-dk);}
+.pass-chip.failed{background:var(--red-lt);color:var(--red-dk);}
+.next-preview{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;max-width:400px;margin:0 auto 28px;text-align:left;}
+.next-preview .pre-label{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:.6px;text-transform:uppercase;margin-bottom:6px;}
+.next-preview h4{font-size:15px;font-weight:600;margin-bottom:3px;}
+.next-preview p{font-size:13px;color:var(--gray600);}
+.fail-card{background:var(--red-lt);border:1.5px solid var(--red);border-radius:var(--r);padding:20px 22px;max-width:420px;margin:0 auto 24px;text-align:left;}
+.fail-card h4{font-size:14px;font-weight:600;color:var(--red-dk);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.fail-card p{font-size:13px;line-height:1.65;color:var(--red-dk);opacity:.85;}
+.fail-options{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+
+/* FINAL */
+.final{text-align:center;padding:52px 20px;}
+.final h2{font-family:'DM Serif Display',serif;font-size:32px;letter-spacing:-.4px;margin-bottom:12px;}
+.final>p{font-size:15px;color:var(--gray600);max-width:420px;margin:0 auto 32px;}
+.cert{background:var(--surface);border:1.5px solid var(--border2);border-radius:var(--r);padding:24px;max-width:460px;margin:0 auto 28px;text-align:left;}
+.cert-lbl{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;font-family:'JetBrains Mono',monospace;}
+.cert-name{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:3px;}
+.cert-sub{font-size:13px;color:var(--muted);}
+.cert-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.cert-badge{font-size:12px;font-weight:500;padding:4px 10px;border-radius:99px;border:1px solid var(--border2);color:var(--gray600);}
+.cert-score{margin-top:12px;font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.cert-score span{font-weight:600;color:var(--text);}
+.score-grid{display:flex;gap:10px;justify-content:center;margin-bottom:28px;flex-wrap:wrap;}
+.score-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);padding:12px 18px;text-align:center;min-width:110px;}
+.score-card .sc-num{font-size:22px;font-weight:600;}
+.score-card .sc-lbl{font-size:11px;color:var(--muted);}
+.score-card .sc-status{font-size:11px;font-family:'JetBrains Mono',monospace;margin-top:3px;}
+
+/* NAME INPUT */
+.name-wrap{margin:20px auto 0;max-width:360px;text-align:left;}
+.name-label{font-size:13px;font-weight:600;color:var(--gray600);margin-bottom:7px;display:block;}
+.name-row{display:flex;gap:10px;align-items:center;}
+.name-input{flex:1;padding:11px 16px;border:1.5px solid var(--border2);border-radius:var(--rsm);font-size:15px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--surface);outline:none;transition:border-color .15s;}
+.name-input:focus{border-color:var(--teal);}
+.name-input::placeholder{color:var(--muted);}
+.name-err{font-size:12px;color:var(--red);margin-top:5px;display:none;}
+
+/* RESULTS SCREEN */
+.results-screen{padding:8px 0 40px;}
+.results-header{text-align:center;padding:24px 20px 16px;}
+.results-header h2{font-family:'DM Serif Display',serif;font-size:26px;letter-spacing:-.4px;margin-bottom:8px;}
+.results-header p{font-size:14px;color:var(--gray600);}
+.results-player{display:inline-flex;align-items:center;gap:8px;background:var(--teal-lt);border-radius:99px;padding:6px 16px;font-size:13px;font-weight:600;color:var(--teal-dk);margin:8px 0 0;}
+.results-summary{display:flex;gap:10px;justify-content:center;margin:14px 0 6px;flex-wrap:wrap;}
+.res-sum-pill{padding:7px 16px;border-radius:99px;font-size:13px;font-weight:500;}
+.res-sum-pill.correct{background:var(--teal-lt);color:var(--teal-dk);}
+.res-sum-pill.wrong{background:var(--red-lt);color:var(--red-dk);}
+.results-level-hdr{border-radius:var(--r);padding:11px 18px;margin:18px 0 4px;display:flex;align-items:center;justify-content:space-between;}
+.results-level-hdr h3{font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;color:#fff;}
+.results-level-hdr .lh-score{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(255,255,255,.75);}
+.results-section-hdr{background:var(--gray50);border:1px solid var(--border);border-radius:var(--rsm);padding:8px 16px;margin:8px 0 3px;display:flex;align-items:center;justify-content:space-between;}
+.results-section-hdr .sh-title{font-size:13px;font-weight:600;color:var(--gray600);}
+.results-section-hdr .sh-score{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);}
+.result-row{display:flex;align-items:stretch;border:1px solid var(--border);border-radius:var(--rsm);margin:3px 0;overflow:hidden;}
+.result-row .rr-icon{width:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.result-row.rr-correct .rr-icon{background:var(--teal-lt);color:var(--teal);}
+.result-row.rr-wrong   .rr-icon{background:var(--red-lt);color:var(--red);}
+.result-row .rr-body{flex:1;padding:9px 13px;min-width:0;}
+.rr-qnum{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:2px;}
+.rr-qtext{font-size:13px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:5px;}
+.rr-chosen,.rr-correct-ans{font-size:12px;line-height:1.5;}
+.rr-chosen{color:var(--gray600);}
+.rr-correct-ans{color:var(--teal-dk);margin-top:2px;}
+.ans-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-right:5px;opacity:.75;}
+.result-row.rr-wrong .rr-chosen{color:var(--red-dk);}
+.results-nav{display:flex;gap:10px;justify-content:center;padding:20px 0 8px;}
+
+@media(max-width:560px){\n  .name-row{flex-direction:column;}\n  .name-input{width:100%;}\n}
+  .welcome h1{font-size:26px;}
+  .fc-face{padding:24px 22px;}
+  .fail-options{flex-direction:column;align-items:center;}
+  .fl-sections{flex-direction:column;}
+  .fl-section{padding:4px 0;}
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="brand">
+      <div class="brand-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2L4 5v6c0 5.5 3.5 10.7 8 12 4.5-1.3 8-6.5 8-12V5L12 2zm0 4a2.5 2.5 0 110 5 2.5 2.5 0 010-5zm0 12c-2.5 0-4.7-1.3-6-3.2.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1C16.7 16.7 14.5 18 12 18z"/></svg></div>
+      <span class="brand-name">PhishGuard</span>
+    </div>
+    <span class="phase-tag" id="phaseTag" style="background:var(--teal-lt);color:var(--teal-dk);">Level 1</span>
+  </div>
+
+  <div class="prog-area" id="progArea" style="display:none">
+    <div class="prog-meta"><span id="progLabel">—</span><span id="progPct">0%</span></div>
+    <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="step-dots" id="stepDots"></div>
+  </div>
+
+  <!-- ① WELCOME -->
+  <div class="screen active" id="sWelcome">
+    <div class="welcome">
+
+      <!-- Cybersecurity illustration -->
+      <div class="hero-illo" aria-hidden="true">
+        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:340px;display:block;margin:0 auto;">
+          <defs>
+            <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#E1F5EE"/>
+              <stop offset="100%" stop-color="#F5F4F0" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1D9E75"/>
+              <stop offset="100%" stop-color="#085041"/>
+            </linearGradient>
+            <linearGradient id="shieldHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Background glow -->
+          <ellipse cx="160" cy="105" rx="100" ry="80" fill="url(#bgGrad)"/>
+
+          <!-- ── SHIELD ── -->
+          <path d="M160 28 L205 46 L205 95 Q205 135 160 158 Q115 135 115 95 L115 46 Z"
+                fill="url(#shieldGrad)" rx="6"/>
+          <!-- Shield shine -->
+          <path d="M160 28 L205 46 L205 80 Q185 65 160 62 Q135 65 115 80 L115 46 Z"
+                fill="url(#shieldHighlight)"/>
+          <!-- Shield inner border -->
+          <path d="M160 36 L198 51 L198 95 Q198 128 160 149 Q122 128 122 95 L122 51 Z"
+                fill="none" stroke="#ffffff" stroke-width="1.2" stroke-opacity="0.25"/>
+
+          <!-- Checkmark inside shield -->
+          <polyline points="144,91 155,103 176,80"
+                    fill="none" stroke="#ffffff" stroke-width="5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- ── ENVELOPE (left) ── -->
+          <g transform="translate(48,74)">
+            <rect x="0" y="0" width="46" height="32" rx="4" fill="#ffffff" stroke="#D3D1C7" stroke-width="1.2"/>
+            <path d="M0 5 L23 18 L46 5" fill="none" stroke="#B4B2A9" stroke-width="1.2"/>
+            <!-- Red warning dot -->
+            <circle cx="38" cy="7" r="6" fill="#E24B4A"/>
+            <text x="38" y="11" text-anchor="middle" fill="#fff" font-size="8" font-weight="700" font-family="sans-serif">!</text>
+          </g>
+
+          <!-- ── LOCK (right) ── -->
+          <g transform="translate(226,70)">
+            <rect x="6" y="14" width="34" height="26" rx="4" fill="#1D9E75"/>
+            <path d="M14 14 Q14 4 23 4 Q32 4 32 14" fill="none" stroke="#085041" stroke-width="3.5" stroke-linecap="round"/>
+            <rect x="18" y="22" width="10" height="10" rx="2" fill="#ffffff" fill-opacity="0.9"/>
+            <rect x="21.5" y="26" width="3" height="5" rx="1" fill="#1D9E75"/>
+          </g>
+
+          <!-- ── FLOATING ALERT CHIPS ── -->
+          <!-- Chip 1 - top left -->
+          <g transform="translate(30,30)">
+            <rect width="52" height="18" rx="9" fill="#FCEBEB" stroke="#F7C1C1" stroke-width="1"/>
+            <circle cx="10" cy="9" r="4" fill="#E24B4A"/>
+            <rect x="18" y="6.5" width="26" height="3" rx="1.5" fill="#E24B4A" fill-opacity="0.45"/>
+          </g>
+          <!-- Chip 2 - top right -->
+          <g transform="translate(240,24)">
+            <rect width="52" height="18" rx="9" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="1"/>
+            <circle cx="10" cy="9" r="4" fill="#1D9E75"/>
+            <rect x="18" y="6.5" width="26" height="3" rx="1.5" fill="#1D9E75" fill-opacity="0.4"/>
+          </g>
+          <!-- Chip 3 - bottom left -->
+          <g transform="translate(22,148)">
+            <rect width="64" height="18" rx="9" fill="#FAEEDA" stroke="#FAC775" stroke-width="1"/>
+            <circle cx="10" cy="9" r="4" fill="#BA7517"/>
+            <rect x="18" y="6.5" width="38" height="3" rx="1.5" fill="#BA7517" fill-opacity="0.4"/>
+          </g>
+          <!-- Chip 4 - bottom right -->
+          <g transform="translate(238,146)">
+            <rect width="56" height="18" rx="9" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="1"/>
+            <circle cx="10" cy="9" r="4" fill="#378ADD"/>
+            <rect x="18" y="6.5" width="30" height="3" rx="1.5" fill="#378ADD" fill-opacity="0.4"/>
+          </g>
+
+          <!-- ── CONNECTING LINES (dashed, from chips toward shield) ── -->
+          <line x1="82" y1="40" x2="130" y2="70" stroke="#D3D1C7" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="240" y1="35" x2="195" y2="68" stroke="#D3D1C7" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="86" y1="157" x2="130" y2="132" stroke="#D3D1C7" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="238" y1="155" x2="196" y2="135" stroke="#D3D1C7" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="94" y1="90" x2="115" y2="95" stroke="#D3D1C7" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="226" y1="90" x2="205" y2="95" stroke="#D3D1C7" stroke-width="1" stroke-dasharray="3,3"/>
+        </svg>
+      </div>
+
+      <h1>Phishing Awareness<br>Training</h1>
+
+      <div class="name-wrap">
+        <label class="name-label" for="playerNameInput">Your name — required to begin</label>
+        <div class="name-row">
+          <input class="name-input" id="playerNameInput" type="text" placeholder="Enter your full name" maxlength="60" oninput="onNameInput()" onkeydown="if(event.key==='Enter')startTraining()"/>
+          <button class="btn btn-dark" id="btnBegin" onclick="startTraining()" disabled>Begin →</button>
+        </div>
+        <div class="name-err" id="nameErr">Please enter your name to begin.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② FLASHCARDS -->
+  <div class="screen" id="sCards">
+    <div class="phase-banner" id="fcBanner">
+      <div class="phase-icon" id="fcIcon" style="background:var(--teal-lt);color:var(--teal);">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+      </div>
+      <div><h3 id="fcBannerTitle">Level 1 — Phishing Basics</h3><p id="fcBannerSub">7 cards · tap to flip</p></div>
+    </div>
+    <div class="sec-crumb" id="secCrumb"></div>
+    <div class="nav-bar">
+      <button class="btn-ghost" onclick="goBack()" id="btnFcBack">← Back</button>
+      <button class="btn-ghost exit-btn" onclick="openExitModal()">✕ Exit</button>
+    </div>
+    <div class="fc-header">
+      <span class="fc-nav-label" id="fcNavLabel">Card 1 of 7</span>
+      <span class="fc-nav-label" id="fcSeenLabel">0 seen</span>
+    </div>
+    <div class="card-shell">
+      <div class="flip-wrap" onclick="flipCard()">
+        <div class="flip-card" id="flipCard">
+          <div class="fc-face fc-front-face">
+            <div class="stg-chip" id="fcFrontStg">PHISHING BASICS</div>
+            <div class="card-title-front" id="fcFrontTitle">—</div>
+            <div class="tap-hint">tap to read ↻</div>
+          </div>
+          <div class="fc-face fc-back-face">
+            <div class="stg-chip" id="fcBackStg">PHISHING BASICS</div>
+            <div class="read-label">Reading</div>
+            <div class="read-body" id="fcBackBody">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-controls">
+      <button class="btn btn-outline btn-sm" id="btnFcPrev" onclick="navCard(-1)" disabled>← Prev</button>
+      <div class="fc-dots" id="fcDots"></div>
+      <button class="btn btn-outline btn-sm" id="btnFcNext" onclick="navCard(1)">Next →</button>
+    </div>
+    <div style="text-align:center;margin-top:20px;">
+      <p class="fc-tip" id="fcTip">Flip each card to read it, then start the quiz.</p>
+      <div style="margin-top:12px;">
+        <button class="btn btn-teal" id="btnGoQuiz" onclick="goSectionQuiz()" disabled>Start Quiz →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ QUIZ -->
+  <div class="screen" id="sQuiz">
+    <div class="phase-banner" id="qBanner">
+      <div class="phase-icon" id="qIcon" style="background:var(--blue-lt);color:var(--blue);">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+      </div>
+      <div><h3 id="qBannerTitle">Quiz 1100 · Phishing Basics</h3><p id="qBannerSub">4 questions</p></div>
+    </div>
+    <div class="sec-crumb" id="quizCrumb"></div>
+    <div class="nav-bar">
+      <button class="btn-ghost" onclick="goBackFromQuiz()">← Back</button>
+      <button class="btn-ghost exit-btn" onclick="openExitModal()">✕ Exit</button>
+    </div>
+    <div class="q-section-lbl" id="qSectionLbl">Quiz 1100 · Phishing Basics</div>
+    <div class="q-counter" id="qCounter">Question 1 of 4</div>
+    <div class="q-text" id="qText">—</div>
+    <div class="opts" id="qOpts"></div>
+    <div class="feedback" id="qFeedback">
+      <div class="fb-lbl" id="fbLbl">Correct!</div>
+      <div class="fb-txt" id="fbTxt"></div>
+    </div>
+    <div class="q-nav">
+      <button class="btn btn-dark" id="btnNextQ"     onclick="nextQ()"           style="display:none">Next Question →</button>
+      <button class="btn btn-teal" id="btnSectionEnd" onclick="endSectionQuiz()"  style="display:none">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ④ SECTION DONE (between sub-sections within a level) -->
+  <div class="screen" id="sSectionDone">
+    <div class="section-done">
+      <div class="sd-ring" id="sdRing" style="background:var(--teal-lt);">✓</div>
+      <h2 id="sdTitle">Phishing Basics Complete</h2>
+      <p class="sd-score" id="sdScore">You scored 4 / 4 on Quiz 1100</p>
+
+      <!-- PASS state -->
+      <div id="sdPassArea">
+        <div class="sd-next" id="sdNext">
+          <div class="pre-label">Up next</div>
+          <h4 id="sdNextTitle">Scam Types</h4>
+          <p id="sdNextDesc">4 reading cards · Quiz 1200</p>
+        </div>
+        <button class="btn btn-dark" onclick="advanceSection()">Continue →</button>
+      </div>
+
+      <!-- FAIL state -->
+      <div id="sdFailArea" style="display:none">
+        <div class="fail-card" style="max-width:420px;margin:0 auto 22px;">
+          <h4>
+            <svg width="16" height="16" viewBox="0 0 24 24" style="fill:var(--red-dk);flex-shrink:0"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            Minimum score not reached
+          </h4>
+          <p id="sdFailMsg">You need at least 3 out of 4 to continue. Please review the flashcards and try again.</p>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn btn-outline" onclick="sdRetryCards()">← Review Flashcards</button>
+          <button class="btn btn-red"    onclick="sdRetryQuiz()">Retake Quiz →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤ BRIDGE (end of whole level) -->
+  <div class="screen" id="sBridge">
+    <div class="bridge">
+      <div class="bridge-icon" id="bridgeIcon">🎯</div>
+      <h2 id="bridgeTitle">—</h2>
+      <p  id="bridgeMsg">—</p>
+      <div class="score-strip">
+        <div class="score-chip"><span class="sc-n" id="bridgeScoreNum">—</span><span style="color:var(--muted);font-size:13px;" id="bridgeScoreOf">/ 12 correct</span></div>
+        <span class="pass-chip" id="bridgePassChip">PASSED</span>
+      </div>
+      <div id="nextPreview" class="next-preview" style="display:none">
+        <div class="pre-label">Up next</div>
+        <h4 id="nextTitle">—</h4>
+        <p  id="nextDesc">—</p>
+      </div>
+      <button class="btn btn-dark" id="btnBridgeCont" onclick="continueFromBridge()" style="display:none">Continue →</button>
+      <div id="failCard" class="fail-card" style="display:none">
+        <h4><svg width="16" height="16" viewBox="0 0 24 24" style="fill:var(--red-dk);flex-shrink:0"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> Minimum score not reached</h4>
+        <p id="failMsg">—</p>
+      </div>
+      <div class="fail-options" id="failOptions" style="display:none">
+        <button class="btn btn-outline" onclick="retryLevel()">← Restart Level</button>
+        <button class="btn btn-red"    onclick="retryQuizOnly()">Retake All Quizzes →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑥ FINAL -->
+  <div class="screen" id="sFinal">
+    <div class="final">
+      <div style="font-size:52px;margin-bottom:18px;">🛡️</div>
+      <h2>Training Complete</h2>
+      <p>You've passed all three levels of phishing awareness training. Well done.</p>
+      <div class="score-grid" id="scoreGrid"></div>
+      <div class="cert">
+        <div class="cert-lbl">Completion Certificate</div>
+        <div class="cert-name" id="certPlayerName">—</div>
+        <div class="cert-sub">has successfully completed Phishing Awareness Training</div>
+        <div class="cert-sub" style="margin-top:4px;">All three levels passed</div>
+        <div class="cert-badges">
+          <span class="cert-badge">Level 1 — Foundations</span>
+          <span class="cert-badge">Level 2 — Detection &amp; Decision</span>
+          <span class="cert-badge">Level 3 — Advanced Threats</span>
+        </div>
+        <div class="cert-score">Overall quiz score: <span id="finalScore">—</span></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-teal"    onclick="showResults()">View Detailed Results →</button>
+        <button class="btn btn-outline" onclick="restart()">Restart Training</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑦ RESULTS RECORD -->
+  <div class="screen" id="sResults">
+    <div class="results-screen">
+      <div class="results-header">
+        <h2>Results Record</h2>
+        <div class="results-player" id="resultsPlayerBadge">👤 —</div>
+        <div class="results-summary" id="resultsSummary"></div>
+        <p>Every question from all three levels — what you chose and whether it was correct.</p>
+      </div>
+      <div id="resultsBody"></div>
+      <div class="results-nav">
+        <button class="btn btn-outline" onclick="show('sFinal')">← Back to Certificate</button>
+        <button class="btn btn-teal"    onclick="downloadExcel()">⬇ Download Results</button>
+        <button class="btn btn-outline" onclick="restart()">Restart Training</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXIT CONFIRM MODAL -->
+  <div class="modal-backdrop" id="exitModal">
+    <div class="modal-box">
+      <h3>Exit Training?</h3>
+      <p>Your progress in the current level will be lost. Are you sure you want to return to the home screen?</p>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeExitModal()">Keep Going</button>
+        <button class="btn btn-red"    onclick="confirmExit()">Exit</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const LETTERS = ['A','B','C','D','E'];
+const SECTION_PASS = 3; /* minimum score required per quiz section (out of 4) */
+
+/* ═══════════════════════════════════════════════════════════════
+   DATA STRUCTURE
+   Each level has sections[]. Each section has { title, quizId, quizLabel, cards[], quiz[] }.
+   Level 1 has 3 sections; Levels 2 & 3 each have 1 section.
+═══════════════════════════════════════════════════════════════ */
+const LEVELS = [
+
+  /* ══════════ LEVEL 1 ══════════ */
+  {
+    id:1, passMark:9,
+    label:"Level 1 — Foundations",
+    accent:"#1D9E75",accentLt:"#E1F5EE",accentDk:"#085041",
+    nextTitle:"Level 2 — Detection & Decision",
+    nextDesc:"7 reading cards covering links, attachments, requests, psychology, MFA, and reporting.",
+    sections:[
+      /* ── Section 0: Phishing Basics ── */
+      {
+        title:"Phishing Basics",
+        quizId:"1100",
+        quizLabel:"Quiz 1100 · Phishing Basics",
+        cards:[
+          {title:"Phishing",
+           reading:"Phishing is a cyberattack in which someone pretends to be a trusted source to trick people into sharing sensitive information such as passwords, banking details, or personal data.",bullets:null,bulletTail:null},
+          {title:"Sensitive Information Targets",
+           reading:"Attackers often try to collect login credentials, financial information, or personally identifiable information that can be used for fraud or identity theft.",bullets:null,bulletTail:null},
+          {title:"Trust-Based Deception",
+           reading:"Phishing messages often appear believable because they imitate real companies, institutions, or familiar people using logos, names, and formal language.",bullets:null,bulletTail:null},
+          {title:"Multiple Communication Channels",
+           reading:"These attacks are not limited to one format. They can happen through email, phone calls, text messages, messaging apps, or fake websites.",bullets:null,bulletTail:null},
+          {title:"Main Objective of Scams",
+           reading:"The purpose of most phishing and scam attempts is to steal money, gain account access, or collect private personal information.",bullets:null,bulletTail:null},
+          {title:"Urgency as a Manipulation Tactic",
+           reading:"Scammers often create pressure by making the message seem time-sensitive so that people react quickly without thinking carefully.",bullets:null,bulletTail:null},
+          {title:"Psychological Manipulation",
+           reading:"Phishing attacks often rely on emotions such as fear, curiosity, excitement, or trust to influence people into acting without enough caution.",bullets:null,bulletTail:null},
+          {title:"Phishing Influence Tactics",
+           reading:"Attackers rely on four key influence tactics: Urgency (creating time pressure to force quick decisions), Social Proof (implying others are already complying), Reciprocity (offering something first to create a sense of obligation), and Liking (posing as a friendly or familiar contact to build false trust).",bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"Which option BEST explains what phishing is?",
+           opts:["The practice of sending emails from reputable sources to influence or gain personal information.","Sending friendly company newsletters.","Backing up your files to the cloud.","Installing legitimate software updates."],correct:0,
+           fb:{right:"Correct! Phishing is the practice of sending deceptive communications that appear to come from trusted or reputable sources in order to steal personal information, credentials, or money. The other options describe legitimate, helpful activities.",
+               wrong:"The correct answer is A. Phishing is defined as sending deceptive messages that appear to come from reputable sources in order to manipulate people into revealing personal information. Options B, C, and D are all legitimate activities."}},
+          {q:"True or False: Phishing only happens through email.",
+           opts:["TRUE","FALSE"],correct:1,
+           fb:{right:"Correct! Phishing is not limited to email. It can occur through phone calls (vishing), text messages (smishing), messaging apps, fake websites, and social media. Every communication channel can be a vector.",
+               wrong:"The correct answer is FALSE. As the flashcard 'Multiple Communication Channels' explained, phishing attacks can happen through email, phone calls, text messages, messaging apps, or fake websites — not just email."}},
+          {q:"You receive a message saying your account will be deleted unless you click a link to 'verify now.' What's the best first step?",
+           opts:["Click the link to save your account.","Go to the official website in a new tab to log in and check.","Reply to the email to confirm it's real.","Ignore the message completely."],correct:1,
+           fb:{right:"Correct! Always navigate to the official website yourself by typing the URL in a new tab — never through the link in the message. This bypasses any malicious URL and lets you verify independently whether there is actually a problem with your account.",
+               wrong:"The correct answer is B. Open a new browser tab and type the organisation's official URL yourself. Clicking the link (A) hands you to the attacker; replying (C) confirms your address; ignoring (D) could miss a real issue."}},
+          {q:"What psychological tactic is the message above using?",
+           msgBox:{type:"email",from:"security-alerts@yourbank-support.net",subject:"⚠️ URGENT: Your account will be suspended in 24 hours",content:"Dear Customer,\n\nWe have detected unusual activity on your account. You MUST verify your identity within 24 hours or your account will be permanently suspended and all funds frozen.\n\nClick here immediately to verify: [secure-verify-now.net/account]"},
+           opts:["Social Proof","Urgency / Time Constraints","Reciprocity","Liking"],correct:1,
+           fb:{right:"Correct! This message uses Urgency / Time Constraints — it creates a 24-hour deadline and threatens severe consequences (account suspension, frozen funds) to make the reader panic and act without thinking. As the 'Urgency as a Manipulation Tactic' flashcard explained, scammers use time pressure to bypass careful decision-making.",
+               wrong:"The correct answer is B — Urgency / Time Constraints. The message uses a fake deadline ('within 24 hours'), threatens severe consequences ('permanently suspended'), and capitalises MUST and URGENT. These are all pressure tactics designed to make you act immediately without verifying. See the 'Phishing Influence Tactics' flashcard for all four tactics."}}
+        ]
+      },
+      /* ── Section 1: Scam Types ── */
+      {
+        title:"Scam Types",
+        quizId:"1200",
+        quizLabel:"Quiz 1200 · Scam Types",
+        cards:[
+          {title:"Advance-Fee Fraud",
+           reading:"This type of scam promises a large reward, payment, or inheritance but first asks the victim to send a smaller payment or fee.",bullets:null,bulletTail:null},
+          {title:"Unrealistic Rewards",
+           reading:"Offers that promise easy money, prizes, or unexpected wealth are often warning signs because scammers use them to attract attention and lower suspicion.",bullets:null,bulletTail:null},
+          {title:"Vishing",
+           reading:"Some scams happen through phone calls, where the attacker pretends to be from technical support, a bank, or another trusted organization.",bullets:null,bulletTail:null},
+          {title:"Smishing",
+           reading:"Scam messages sent through SMS or messaging platforms often use short urgent language and include links meant to trigger impulsive action.",bullets:null,bulletTail:null},
+          {title:"Pharming",
+           reading:"Pharming is an attack where users are silently redirected from a legitimate website to a fake one without realizing it, often due to manipulated DNS settings or infected systems. Unlike typical phishing, the user may enter the correct web address but still end up on a fraudulent site.",bullets:null,bulletTail:null},
+          {title:"Malware",
+           reading:"Malware refers to malicious software designed to harm, disrupt, or gain unauthorized access to a system. It can be delivered through infected links, attachments, or downloads and may steal data, monitor activity, or damage the device.",bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"An email from a 'rich prince' promises you $8.5 million if you just pay a $500 'transfer fee'. This is a classic example of:",
+           opts:["A 'Nigerian 419' (Advance-Fee Fraud) scam.","A 'Whaling' attack.","A 'Smishing' attack.","A legitimate investment opportunity."],correct:0,
+           fb:{right:"Correct! This is the classic Advance-Fee Fraud (also called '419 fraud'). As the flashcard explained, the victim is promised a large reward but must send a small fee first — and of course receives nothing. There is no prince and no money.",
+               wrong:"The correct answer is A — Advance-Fee Fraud. The flashcard 'Advance-Fee Fraud' described this exactly: a large reward is promised, but the victim must pay a smaller fee upfront. It's also known as the Nigerian 419 scam."}},
+          {q:"True or False: An email full of spelling errors, bad grammar, and random capitalization is a major red flag for phishing.",
+           opts:["TRUE","FALSE"],correct:0,
+           fb:{right:"Correct! Poor spelling, grammar errors, and erratic capitalisation are well-established phishing red flags — signs of a rushed attacker or machine translation. However, sophisticated attacks can be perfectly written, so this is one signal among many.",
+               wrong:"The correct answer is TRUE. Poor spelling, bad grammar, and random capitalisation are classic red flags, as the Red Flags section explains. That said, advanced attacks can be grammatically perfect — never use this as your only check."}},
+          {q:"A phone call from someone claiming your computer is infected and asking for remote access is called:",
+           opts:["Vishing","Smishing","Pharming","Malware"],correct:0,
+           fb:{right:"Correct! Vishing is voice-based phishing, as covered in the 'Vishing' flashcard. Attackers call pretending to be tech support, banks, or government agencies to extract information or gain remote computer access. Never grant remote access to an unsolicited caller.",
+               wrong:"The correct answer is A — Vishing. The flashcard 'Vishing' described this: phone calls from attackers pretending to be from technical support or banks. Smishing (B) is SMS-based. Pharming (C) silently redirects web traffic. Malware (D) is malicious software."}},
+          {q:"An SMS (text message) with a link offering a prize is an example of:",
+           opts:["Vishing","Smishing","Pharming","Whaling"],correct:1,
+           fb:{right:"Correct! Smishing is phishing via SMS. The 'Smishing' flashcard explained that scam messages sent through SMS often use short urgent language and links designed to trigger impulsive action. Prize offers by text are a classic smishing pattern.",
+               wrong:"The correct answer is B — Smishing. The flashcard 'Smishing' described exactly this: SMS messages with links that try to trigger impulsive action. Vishing (A) is phone calls; Pharming (C) redirects DNS; Whaling (D) targets executives."}}
+        ]
+      },
+      /* ── Section 2: Red Flags ── */
+      {
+        title:"Red Flags",
+        quizId:"1300",
+        quizLabel:"Quiz 1300 · Red Flags",
+        cards:[
+          {title:"Language and Formatting Red Flags",
+           reading:"Many fraudulent messages contain poor spelling, awkward grammar, strange capitalization, or inconsistent formatting.",bullets:null,bulletTail:null},
+          {title:"Limits of Surface Clues",
+           reading:"Not every scam is poorly written, so spelling or grammar alone should not be the only reason for judging whether something is legitimate.",bullets:null,bulletTail:null},
+          {title:"Legitimate vs Suspicious Communication",
+           reading:"Real organizations typically do not use threatening language, extreme urgency, or pressure to force immediate action. Messages that do this should be treated with caution.",bullets:null,bulletTail:null},
+          {title:"Impersonation of Authority",
+           reading:"Attackers often pretend to be people from HR, customer service, IT support, or financial institutions because authority increases the chance of compliance.",bullets:null,bulletTail:null},
+          {title:"Pretext",
+           reading:"A pretext is the false story or made-up situation a scammer uses to make the request sound believable and convincing.",bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"True or False: Legitimate companies often use urgent, threatening subjects like: 'FINAL WARNING: ACCOUNT SUSPENSION'.",
+           opts:["TRUE","FALSE"],correct:1,
+           fb:{right:"Correct! The flashcard 'Legitimate vs Suspicious Communication' stated that real organisations do not use threatening language or extreme urgency to force immediate action. All-caps threatening subject lines are a textbook phishing red flag.",
+               wrong:"The correct answer is FALSE. As the flashcard 'Legitimate vs Suspicious Communication' explained, real organisations do not use threatening language or extreme urgency. 'FINAL WARNING: ACCOUNT SUSPENSION' in all caps is a classic pressure tactic used by attackers."}},
+          {q:"If you get a suspicious email *appearing* to be from HR, what should you do?",
+           opts:["Trust it, it's from your company.","Call or message HR through a separate, trusted channel to verify.","Click the link to see if it's real.","Delete it and tell no one."],correct:1,
+           fb:{right:"Correct! The flashcard 'Impersonation of Authority' warned that attackers often pretend to be from HR, IT, or other authority figures. Always verify through a separate, trusted channel — call HR using a known internal number, not the contact details in the suspicious email.",
+               wrong:"The correct answer is B. The 'Impersonation of Authority' flashcard explained that attackers frequently impersonate HR and other authority figures. Never trust an email purely based on its apparent sender — always verify through a known, separate channel."}},
+          {q:"What is the main goal of most phishing scams?",
+           opts:["To test your internet speed.","To steal money or 'PII' (Personally Identifiable Information).","To improve your computer's performance.","To clean up your inbox."],correct:1,
+           fb:{right:"Correct! The flashcard 'Main Objective of Scams' stated clearly: the purpose of most phishing and scam attempts is to steal money, gain account access, or collect private personal information (PII). Options A, C, and D describe legitimate, helpful activities.",
+               wrong:"The correct answer is B. As the flashcard 'Main Objective of Scams' explained, phishing exists to steal money, gain account access, or collect personally identifiable information (PII). The other options describe legitimate activities."}},
+          {q:"What is a 'pretext' in a phishing attack?",
+           opts:["The font size of the email.","The fake story or scenario used to trick you.","The file attachment.","The 'From' address."],correct:1,
+           fb:{right:"Correct! The flashcard 'Pretext' defined it exactly: a pretext is the false story or made-up situation a scammer uses to make the request sound believable and convincing. Examples include 'your IT department needs your password for a system upgrade.'",
+               wrong:"The correct answer is B. The flashcard 'Pretext' defined it as the false story or made-up situation a scammer uses to make their request seem believable. It is the invented scenario that provides the false justification for the attack."}}
+        ]
+      }
+    ]
+  },
+
+  /* ══════════ LEVEL 2 ══════════ */
+  {
+    id:2, passMark:15,
+    label:"Level 2 — Detection & Decision",
+    accent:"#378ADD",accentLt:"#E6F1FB",accentDk:"#0C447C",
+    nextTitle:"Level 3 — Advanced Threats",
+    nextDesc:"7 reading cards covering spear phishing, whaling, OSINT, email spoofing, and defense strategy.",
+    sections:[
+
+      /* ── Section 0: Links ── */
+      {
+        title:"Links",
+        quizId:"1400",
+        quizLabel:"Quiz 1400 · Links",
+        cards:[
+          {title:"Suspicious Links",
+           reading:"A link may look trustworthy while actually leading to a different website. Attackers often hide the real destination inside a longer web address to make it seem legitimate.",
+           bullets:null,bulletTail:null},
+          {title:"Real Domain Recognition",
+           reading:"When checking a web address, the most important part is the actual domain name. A familiar brand name appearing before the real domain can be misleading.",
+           bullets:null,bulletTail:null},
+          {title:"Hovering Over Links",
+           reading:"Before clicking a link, you can place your cursor over it to preview where it really goes. This helps reveal whether the destination matches the message.",
+           bullets:null,bulletTail:null},
+          {title:"Unsafe Link Response",
+           reading:"If a link looks suspicious, do not click it. Report the message to your security or IT team so others can be protected.",
+           bullets:null,bulletTail:null},
+          {title:"Unsafe Attachments",
+           reading:"Some attachments are more dangerous than others, especially files that can run programs or contain hidden scripts. Unexpected attachments should be treated carefully.",
+           bullets:null,bulletTail:null},
+          {title:"High-Risk File Types",
+           reading:"Files that can run programs or macros, such as executable or macro-enabled files, are more likely to contain harmful code than simple documents or images.",
+           bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"Which part of this link is the MOST suspicious? 'http://yourbank.secure-update.com/login'",
+           opts:["'http' instead of 'https://' (no encryption).","The real domain is 'secure-update.com', not 'yourbank'.","The '/login' path.","There is nothing suspicious."],
+           multiCorrect:[0,1],
+           fb:{right:"Correct! Both A and B are valid red flags. Option A: using 'http' means the connection is unencrypted — already a warning sign. Option B is the critical issue: the real domain is 'secure-update.com' (what the attacker controls), while 'yourbank' is just a subdomain added to look convincing. The 'Real Domain Recognition' flashcard explains why the domain is the most important part to check.",
+               wrong:"Both A and B are correct here. 'http' (not 'https') means no encryption — a red flag. But the bigger danger is the domain: 'secure-update.com' is the real server the attacker controls, while 'yourbank' is just a subdomain designed to mislead. The 'Real Domain Recognition' flashcard explains that familiar brand names appearing before the real domain are a deception tactic."}},
+          {q:"True or False: 'Lesson Two: Learn to Hover' means you should rest your mouse over a link (without clicking) to see its real destination.",
+           opts:["TRUE","FALSE"],correct:0,
+           fb:{right:"Correct! The 'Hovering Over Links' card covered this exactly — placing your cursor over a link previews the real destination. This simple habit helps reveal whether the link goes where the message claims.",
+               wrong:"TRUE. The 'Hovering Over Links' flashcard explained: before clicking, place your cursor over a link to preview where it really goes. This reveals mismatches between what the link says and where it leads."}},
+          {q:"A link in an email says 'View Invoice' but hovering over it reveals it links to 'randomfileshare.net/invoice.exe'. What should you do?",
+           opts:["Click the link, it's just an invoice.","Delete the email immediately and tell no one.","Do NOT click and report the email to your security/IT department."],correct:2,
+           fb:{right:"Correct! The 'Unsafe Link Response' card stated: if a link looks suspicious, do not click it — report it to your IT team. The mismatch between 'View Invoice' and a random file-share site with an .exe file is a clear red flag.",
+               wrong:"The correct answer is C. As the 'Unsafe Link Response' flashcard explained, a suspicious link should be reported to IT — not deleted silently. Deleting without reporting prevents your team from protecting other employees."}},
+          {q:"Which unexpected attachment is generally the MOST risky to open?",
+           opts:[".jpg (Image File)",".txt (Text File)",".pdf (Document)",".exe or .docm (Executable or Macro-enabled)"],correct:3,
+           fb:{right:"Correct! The 'High-Risk File Types' card explained that executable and macro-enabled files are more likely to contain harmful code. They can silently run programs when opened — unlike images or plain text files.",
+               wrong:"The correct answer is D. The 'High-Risk File Types' flashcard explained that files capable of running programs or macros — such as .exe or .docm — carry far greater risk than simple documents or images."}}
+        ]
+      },
+
+      /* ── Section 1: Requests ── */
+      {
+        title:"Requests",
+        quizId:"1500",
+        quizLabel:"Quiz 1500 · Requests",
+        cards:[
+          {title:"Sensitive Information Requests",
+           reading:"Suspicious messages often ask for information that legitimate organizations would not request through unsolicited communication, such as passwords or financial details.",
+           bullets:null,bulletTail:null},
+          {title:"Password Safety Rule",
+           reading:"Legitimate organizations do not ask for passwords through email, messages, or calls.",
+           bullets:null,bulletTail:null},
+          {title:"Reward-Based Traps",
+           reading:"Attackers may offer prizes, gift cards, or benefits to attract attention and encourage people to ignore warning signs.",
+           bullets:null,bulletTail:null},
+          {title:"Payment Change Requests",
+           reading:"A request involving a new payment account or financial transfer should never be trusted automatically, even if the message appears polished or professional.",
+           bullets:null,bulletTail:null},
+          {title:"High-Risk Requests",
+           reading:"Requests involving money, account access, or confidential information require extra caution and should be verified before any action is taken.",
+           bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"An email promises a $100 gift card for a 'quick survey,' but the survey asks for your credit card info 'for verification.' What's the red flag?",
+           opts:["A legitimate survey would never ask for credit card info.","The gift card amount is too high.","The tone is too friendly.","The survey link is external."],correct:0,
+           fb:{right:"Correct! The 'Reward-Based Traps' and 'Sensitive Information Requests' flashcards covered this pattern — attackers use prize offers to attract attention, then request financial details under a false pretext. Legitimate surveys never need your credit card.",
+               wrong:"The correct answer is A. As the 'Reward-Based Traps' card explained, gift card offers are used to lower suspicion. The 'Sensitive Information Requests' card adds that legitimate organisations would not request financial details through unsolicited messages."}},
+          {q:"True or False: Legitimate services, like IT or your bank, will *never* ask for your password in an email.",
+           opts:["TRUE","FALSE"],correct:0,
+           fb:{right:"Correct! The 'Password Safety Rule' flashcard stated this directly: legitimate organizations do not ask for passwords through email, messages, or calls. This is an absolute rule with no exceptions.",
+               wrong:"TRUE. The 'Password Safety Rule' flashcard was clear: legitimate organizations never ask for passwords through email, messages, or calls. Any such request should be treated as a phishing attempt."}},
+          {q:"An invoice email has perfect grammar but requests payment to a new, unusual bank account. What's the best action?",
+           opts:["Verify the change 'out-of-band' (e.g., by phone).","Pay it; the perfect grammar means it's safe.","Trust it, bad grammar is the only red flag.","Reply to the email asking for a discount."],correct:0,
+           fb:{right:"Correct! The 'Payment Change Requests' card explained that a request involving a new payment account should never be trusted automatically, even if the message appears professional. Always verify out-of-band — call the supplier using a trusted number from your own records.",
+               wrong:"The correct answer is A. The 'Payment Change Requests' flashcard warned: a request for a new payment account should never be trusted automatically, even if polished. Perfect grammar does not make an email safe. Always verify by phone using a number you already have."}},
+          {q:"What is a 'Level-1' red flag in the message above?",
+           msgBox:{type:"sms",content:"Hi! Your Amazon order payment Didn't went through! Your order will be cancelled unless you update billing details immediately: amzn-billing-secure.co/update-now"},
+           opts:["It lists a specific product name.","It uses awkward grammar ('Didn't went through!') and punctuation.","It comes from Amazon's official app.","It includes your order history."],correct:1,
+           fb:{right:"Correct! 'Didn't went through!' is a grammatical error — a classic Level-1 red flag of a phishing message written hastily or via machine translation. The 'Language and Formatting Red Flags' flashcard in Level 1 explains that fraudulent messages often contain poor grammar and inconsistent formatting that a legitimate company like Amazon would never publish.",
+               wrong:"The correct answer is B. 'Didn't went through!' is grammatically incorrect — a Level-1 red flag. The Level 1 flashcard 'Language and Formatting Red Flags' covers this: fraudulent messages often contain poor grammar that a professional organisation would not produce. The suspicious URL (amzn-billing-secure.co) is also a red flag."}}
+        ]
+      },
+
+      /* ── Section 2: Psychology ── */
+      {
+        title:"Psychology",
+        quizId:"1600",
+        quizLabel:"Quiz 1600 · Psychology",
+        cards:[
+          {title:"Authority and Pressure",
+           reading:"Attackers often pretend to be people in positions of power, such as IT staff, managers, or executives, while also pushing for immediate action.",
+           bullets:null,bulletTail:null},
+          {title:"Social Influence",
+           reading:"People are often influenced by what they think others are doing. Attackers may take advantage of this tendency to make suspicious messages seem believable.",
+           bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"A caller claims to be from IT, pressuring you to reset your account NOW. What is the primary social engineering tactic being used?",
+           opts:["Greed (offering a reward)","Authority & Urgency","Scarcity (a limited resource)","Liking (being friendly)"],correct:1,
+           fb:{right:"Correct! The 'Authority and Pressure' flashcard described this exactly — attackers pretend to be in positions of power (IT) while pushing for immediate action (NOW). This combination of authority and urgency is designed to override critical thinking.",
+               wrong:"The correct answer is B — Authority & Urgency. The 'Authority and Pressure' card covered this: attackers impersonate IT or management while demanding immediate action. The two tactics together are designed to stop you from pausing to verify."}},
+          {q:"What is 'Social Proof' as a principle of influence?",
+           opts:["A secure ID card.","Pretending to be a boss or CEO.","The tendency to look to others to guide our behavior.","A 'limited time offer' scam."],correct:2,
+           fb:{right:"Correct! The 'Social Influence' flashcard explained that people are often influenced by what they think others are doing. Social Proof is the term for this tendency — attackers exploit it to make suspicious requests appear normal.",
+               wrong:"The correct answer is C. The 'Social Influence' card explained that attackers take advantage of people's tendency to be influenced by what others are doing. Social Proof weaponises this by making compliance seem like the norm."}},
+          {q:"An email from your 'CEO' demands you secretly buy gift cards. What is the best next action?",
+           opts:["Comply immediately.","Verify the request 'out-of-band' (e.g., via phone or internal chat).","Forward to coworkers to ask if they got it too.","Buy the cards, then ask for reimbursement."],correct:1,
+           fb:{right:"Correct! This is a classic case combining 'Authority and Pressure' (impersonating the CEO) with a high-risk financial request. The 'High-Risk Requests' card (Requests section) also applies — always verify money-related requests through a separate, trusted channel before acting.",
+               wrong:"The correct answer is B. The 'Authority and Pressure' flashcard warned about impersonation of executives. The demand for secrecy is an additional red flag. Always verify through a separate channel — not by replying to the email."}},
+          {q:"Is 'uspostinfo.com' an official USPS website?",
+           opts:["Yes, it has 'uspost' in it.","No, it's a fake domain."],correct:1,
+           fb:{right:"Correct! The official USPS website is usps.com. As the 'Real Domain Recognition' card (Links section) explained, a familiar name appearing in a web address can be misleading — the actual domain is what matters, not keywords within it.",
+               wrong:"The answer is B — it is a fake domain. The 'Real Domain Recognition' flashcard covered this: a familiar brand name within an address can be misleading. The real domain here is 'uspostinfo.com', not 'usps.com'."}}
+        ]
+      },
+
+      /* ── Section 3: Best Practices ── */
+      {
+        title:"Best Practices",
+        quizId:"1700",
+        quizLabel:"Quiz 1700 · Best Practices",
+        cards:[
+          {title:"Independent Verification",
+           reading:"When a message asks for sensitive action, the safest step is to confirm it using a separate trusted channel, such as a phone call or official internal contact.",
+           bullets:null,bulletTail:null},
+          {title:"Strong Passwords",
+           reading:"Passwords are safer when they are long, hard to guess, and not based on common words, names, or predictable number patterns.",
+           bullets:null,bulletTail:null},
+          {title:"Multi-Factor Authentication",
+           reading:"Using an additional verification step can help protect an account even if someone manages to steal the password.",
+           bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"Which password is the STRONGEST?",
+           opts:["Password123!","Winter2025","yM5!gRd9*&B2qx","MyDogSpot22"],correct:2,
+           fb:{right:"Correct! The 'Strong Passwords' card explained that passwords are safer when they are long and not based on common words or predictable patterns. 'yM5!gRd9*&B2qx' is long, random, and contains no recognisable words — unlike the other options.",
+               wrong:"The correct answer is C — 'yM5!gRd9*&B2qx'. The 'Strong Passwords' flashcard explained that long, unpredictable passwords not based on common words are the safest. Options A, B, and D all use common words or predictable patterns."}},
+          {q:"True or False: Enabling Multi-Factor Authentication (MFA) can help protect your account even if a phisher steals your password.",
+           opts:["TRUE","FALSE"],correct:0,
+           fb:{right:"Correct! The 'Multi-Factor Authentication' card stated this directly: using an additional verification step can protect an account even if someone steals the password. A stolen password alone is not enough to get in.",
+               wrong:"TRUE. The 'Multi-Factor Authentication' flashcard explained exactly this: an additional verification step protects your account even if someone manages to steal your password. MFA means stolen credentials alone are not sufficient."}},
+          {q:"An email from your 'CFO' asks for a money wire transfer NOW. What is your next best action?",
+           opts:["Send the money quickly.","Verify the request 'out-of-band' (e.g., via a direct phone call).","Reply to the email for clarification.","Ignore and Delete."],correct:1,
+           fb:{right:"Correct! The 'Independent Verification' card stated that the safest response to any sensitive request is to confirm it using a separate trusted channel — such as a direct phone call. Wire transfer requests are exactly the kind of high-risk action that requires this step.",
+               wrong:"The correct answer is B. The 'Independent Verification' flashcard covered this: when a message asks for sensitive action, confirm it through a separate trusted channel such as a phone call. Never act on a wire transfer request based on email alone."}},
+          {q:"If you click a phishing link by accident, what is the *worst* thing you can do from a company policy perspective?",
+           opts:["Immediately report it to IT/security.","Disconnect from the internet.","Delete the email and tell no one.","Change your password."],correct:2,
+           fb:{right:"Correct! The Reporting section cards explain why this is so harmful — deleting the message and staying silent destroys evidence and prevents the security team from investigating or protecting others. Always report immediately, even for accidental clicks.",
+               wrong:"The correct answer is C. As the Reporting section explains, simply deleting a suspicious message without reporting it prevents others from being warned and allows the threat to continue unnoticed. Always report — even accidental clicks matter."}}
+        ]
+      },
+
+      /* ── Section 4: Reporting ── */
+      {
+        title:"Reporting",
+        quizId:"1800",
+        quizLabel:"Quiz 1800 · Reporting",
+        sectionPassMark:2,
+        cards:[
+          {title:"Reporting Suspicious Messages",
+           reading:"Reporting a possible phishing attempt helps security teams investigate the threat and protect other people from the same attack.",
+           bullets:null,bulletTail:null},
+          {title:"Hidden Consequences of Deletion",
+           reading:"Simply deleting a suspicious message without reporting it may prevent others from being warned and may allow the threat to continue unnoticed.",
+           bullets:null,bulletTail:null},
+          {title:"Early Detection",
+           reading:"Recognizing and reporting suspicious activity early can reduce the chance of a larger security incident spreading through an organization.",
+           bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"Why is it critical to report a suspected phish, even if you don't click it?",
+           opts:["It helps the IT/security team block the attack and protect others.","It deletes the email instantly from your inbox.","It guarantees you get a bonus.","It's actually not important to report if you didn't click."],correct:0,
+           fb:{right:"Correct! The 'Reporting Suspicious Messages' card stated exactly this: reporting helps security teams investigate and protect other people from the same attack. You may be the first person to catch it — your report could shield the entire organisation.",
+               wrong:"The correct answer is A. The 'Reporting Suspicious Messages' flashcard explained: reporting helps security teams investigate and protect others. The 'Early Detection' card also covered this — early reporting reduces the chance of a larger incident spreading."}},
+          {q:"True or False: You can always spot a phish because it will have bad grammar and spelling mistakes.",
+           opts:["TRUE","FALSE"],correct:1,
+           fb:{right:"Correct! FALSE. The Level 1 'Limits of Surface Clues' card covered this: not every scam is poorly written, so spelling or grammar alone should not be the only reason for judging legitimacy. Advanced phishing attacks can be perfectly written.",
+               wrong:"FALSE. The 'Limits of Surface Clues' card in Level 1 explained that not every scam is poorly written. Sophisticated phishing — especially spear phishing and BEC — can be grammatically perfect. Never use grammar as your only safety check."}},
+          {q:"Does the message above seem suspicious?",
+           msgBox:{type:"sms",content:"[SMS] CONGRATULATIONS! You've won a $500 Walmart gift card. You were selected as today's winner! Tap to claim your reward before it expires at midnight: wlmrt-free-rewards.net/claim2024"},
+           opts:["Yes, it's a likely 'Smishing' attack.","No, it looks like a safe job offer."],correct:0,
+           fb:{right:"Correct! This is a classic smishing (SMS phishing) attack. The red flags are clear: an unsolicited prize offer, artificial urgency ('expires at midnight'), and a suspicious URL that is not a real Walmart domain. As the 'Reporting Suspicious Messages' flashcard explained, reporting this protects others from the same attack.",
+               wrong:"The correct answer is A — this is a smishing attack. The red flags: unsolicited prize, fake urgency, and a suspicious link (wlmrt-free-rewards.net is not Walmart). The 'Hidden Consequences of Deletion' flashcard explains why deleting without reporting lets the threat continue undetected."}}
+        ]
+      }
+
+    ]
+  },
+
+  /* ══════════ LEVEL 3 ══════════ */
+  {
+    id:3, passMark:18,
+    label:"Level 3 — Advanced Threats",
+    accent:"#D85A30",accentLt:"#FAECE7",accentDk:"#712B13",
+    nextTitle:null,nextDesc:null,
+    sections:[
+
+      /* ── Section 0: Spear Phishing ── */
+      {
+        title:"Spear Phishing",
+        quizId:"1900",
+        quizLabel:"Quiz 1900 · Spear Phishing",
+        cards:[
+          {title:"Website Cloning",
+           reading:"Attackers can create nearly identical copies of legitimate websites to trick users into entering their login details on fake pages.",
+           bullets:null,bulletTail:null},
+          {title:"HTTPS Misconception",
+           reading:"A secure connection (padlock icon) only means data is encrypted during transmission; it does not guarantee that the website itself is trustworthy.",
+           bullets:null,bulletTail:null},
+          {title:"Personalized Phishing",
+           reading:"Some attacks are tailored using specific details about the target, making the message feel more believable and harder to detect.",
+           bullets:null,bulletTail:null},
+          {title:"Business Email Compromise (BEC)",
+           reading:"Attackers may gain access to or imitate a trusted email account, such as an executive's, to send convincing requests within an organization.",
+           bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"What is 'Website Cloning'?",
+           opts:["When the 'From' address in an email is faked.","Copying a legitimate website (like a bank or store) to create a pixel-perfect fake login page.","An attack using a voice call (Vishing).","A secure way to back up your website."],correct:1,
+           fb:{right:"Correct! The flashcard 'Website Cloning' explained this exactly: attackers create nearly identical copies of legitimate websites to trick users into entering their login details on fake pages. The victim believes they are on the real site while their credentials go straight to the attacker.",
+               wrong:"The correct answer is B. The flashcard 'Website Cloning' described how attackers create nearly identical copies of real websites to harvest login credentials from unsuspecting visitors."}},
+          {q:"True or False: A site with a padlock icon (https://) is always safe and legitimate.",
+           opts:["TRUE","FALSE"],correct:1,
+           fb:{right:"Correct! The flashcard 'HTTPS Misconception' stated this clearly: a secure connection only means data is encrypted during transmission — it does not guarantee that the website itself is trustworthy. Attackers obtain HTTPS certificates for fake sites routinely.",
+               wrong:"FALSE. The flashcard 'HTTPS Misconception' explained that the padlock only means data is encrypted in transit — it says nothing about whether the site itself is legitimate or controlled by an attacker."}},
+          {q:"An email addresses you by name and references a real project you're on. This is likely:",
+           opts:["A 'Level 4' Spear Phish.","A 'Level 1' Mass Phish.","A 'Vishing' attack.","A 'Sandboxing' attack."],correct:0,
+           fb:{right:"Correct! The flashcard 'Personalized Phishing' explained that some attacks are tailored using specific details about the target, making them feel more believable. Using your real name and an active project requires prior research — the hallmark of a targeted spear phish.",
+               wrong:"The correct answer is A. The flashcard 'Personalized Phishing' covered this: attacks tailored using specific personal details about the target feel more believable and are harder to detect. This personalisation is what distinguishes spear phishing from generic mass attacks."}},
+          {q:"'Business Email Compromise' (BEC) attacks often start with:",
+           opts:["The attacker compromising or spoofing an executive's mailbox.","The attacker physically stealing a laptop.","The attacker placing a social media ad.","The attacker pushing a fake app store update."],correct:0,
+           fb:{right:"Correct! The flashcard 'Business Email Compromise (BEC)' described this directly: attackers gain access to or imitate a trusted email account, such as an executive's, to send convincing requests within an organization. The trusted identity is the weapon.",
+               wrong:"The correct answer is A. The flashcard 'Business Email Compromise (BEC)' explained that attackers gain access to or imitate a trusted executive's email account, then use that identity's authority to direct employees or vendors to take financial or data actions."}}
+        ]
+      },
+
+      /* ── Section 1: Whaling ── */
+      {
+        title:"Whaling",
+        quizId:"2000",
+        quizLabel:"Quiz 2000 · Whaling",
+        cards:[
+          {title:"Whaling Attacks",
+           reading:"A highly targeted form of phishing aimed at senior individuals, such as executives, because of their access to sensitive information or authority.",
+           bullets:null,bulletTail:null},
+          {title:"Typosquatting",
+           reading:"Attackers create domains that closely resemble real ones, often using small spelling changes to trick users into trusting them.",
+           bullets:null,bulletTail:null},
+          {title:"Pretexting",
+           reading:"A deceptive scenario or story used by attackers to justify their request and gain the victim's trust.",
+           bullets:null,bulletTail:null},
+          {title:"Suspicious Email Domains",
+           reading:"Email addresses may include familiar names but hide the true source within a longer or altered domain structure.",
+           bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"Which email address is most likely a FAKE PayPal address?",
+           opts:["service@paypal.com","service@e.paypal.com","service@paypal.com.security-access.net","noreply@paypal.com"],correct:2,
+           fb:{right:"Correct! The flashcard 'Suspicious Email Domains' warned that email addresses may include familiar names but hide the true source within a longer or altered domain structure. Here, 'paypal.com' is just a subdomain — the real domain is 'security-access.net', controlled by the attacker.",
+               wrong:"The correct answer is C. As the flashcard 'Suspicious Email Domains' explained, familiar names can be embedded in fraudulent domain structures. The real domain in 'service@paypal.com.security-access.net' is 'security-access.net' — read email domains from right to left."}},
+          {q:"Which domain is an example of 'Typosquatting'?",
+           opts:["app1e.com","apple.com","locate.apple.com","icloud.com"],correct:0,
+           fb:{right:"Correct! The flashcard 'Typosquatting' explained that attackers create domains that closely resemble real ones using small changes. 'app1e.com' replaces the letter 'l' with the number '1' — almost identical to 'apple.com' at a glance.",
+               wrong:"The correct answer is A. The flashcard 'Typosquatting' covered this: attackers register domains that closely resemble real ones using small spelling changes. 'app1e.com' swaps the letter 'l' for the number '1' to mimic 'apple.com'."}},
+          {q:"A fake tech support person emails you saying your account was hacked, offering to 'fix' it for a fee. What type of scam is this?",
+           opts:["A 'Pretexting' attack.","A 'Spear Phish'.","A 'Smishing' attack.","A 'Credential Stuffing' attack."],correct:0,
+           fb:{right:"Correct! The flashcard 'Pretexting' defined it exactly: a deceptive scenario or story used by attackers to justify their request and gain the victim's trust. The fabricated 'your account was hacked' story is the pretext that makes the fee request seem legitimate.",
+               wrong:"The correct answer is A. The flashcard 'Pretexting' described this: a deceptive scenario or story used to justify a request. The invented hacking story creates urgency and provides false justification for paying the fee."}},
+          {q:"What is 'Whaling'?",
+           opts:["A spear phish that targets 'big fish' (e.g., CEOs, CFOs).","A phish that uses a 'Greed Tactic'.","An attack using a 'Cloned Website'.","A phish sent via text message (Smishing)."],correct:0,
+           fb:{right:"Correct! The flashcard 'Whaling Attacks' defined it precisely: a highly targeted form of phishing aimed at senior individuals, such as executives, because of their access to sensitive information or authority.",
+               wrong:"The correct answer is A. The flashcard 'Whaling Attacks' explained it: whaling targets senior individuals such as executives because of their authority and access to sensitive data. It is a high-value form of spear phishing."}}
+        ]
+      },
+
+      /* ── Section 2: Psychology ── */
+      {
+        title:"Psychology",
+        quizId:"2100",
+        quizLabel:"Quiz 2100 · Psychology",
+        cards:[
+          {title:"Real Domain Identification",
+           reading:"The actual domain is the most important part of a web address, even if other parts of the link appear familiar or trustworthy.",
+           bullets:null,bulletTail:null},
+          {title:"Amygdala Hijack",
+           reading:"Strong emotional triggers like fear or urgency can override rational thinking, leading people to act quickly without careful evaluation.",
+           bullets:null,bulletTail:null},
+          {title:"Targeted Information Use",
+           reading:"Attackers gather publicly available information to craft messages that appear relevant and trustworthy.",
+           bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"In the URL 'http://login.bank.com.security-check.net/account', what is the REAL domain?",
+           opts:["login.bank.com","bank.com","security-check.net","account"],correct:2,
+           fb:{right:"Correct! The flashcard 'Real Domain Identification' stated that the actual domain is the most important part of a web address, even if other parts appear familiar. Read URLs from right to left: .net is the TLD, 'security-check' is the real domain — everything before it is a subdomain the attacker controls.",
+               wrong:"The correct answer is C — 'security-check.net'. The flashcard 'Real Domain Identification' explained that the actual domain is the most important part of a web address. Reading right to left: .net (TLD) → security-check (real domain) → everything else is attacker-controlled subdomain."}},
+          {q:"Phishing scams often use 'Urgency' and 'Fear'. Why?",
+           opts:["To be helpful.","To reduce server traffic.","To trigger an 'Amygdala Hijack' and prevent 'Critical Thinking'.","Because urgency is a sign of a legitimate email."],correct:2,
+           fb:{right:"Correct! The flashcard 'Amygdala Hijack' explained this directly: strong emotional triggers like fear or urgency can override rational thinking, leading people to act quickly without careful evaluation. Attackers deliberately engineer this state.",
+               wrong:"The correct answer is C. The flashcard 'Amygdala Hijack' covered this: fear and urgency trigger a neurological response that overrides rational thinking, causing people to act impulsively. Attackers deliberately engineer this panicked state."}},
+          {q:"What is the key characteristic of 'Spear Phishing'?",
+           opts:["It's a generic, mass-distributed email with bad grammar.","It's a highly personalized attack, using 'OSINT' (research) to build trust.","It's an attack that only uses malicious downloads.","It's an attack that only happens over the phone."],correct:1,
+           fb:{right:"Correct! The flashcard 'Targeted Information Use' explained that attackers gather publicly available information to craft messages that appear relevant and trustworthy. This OSINT-based personalisation is the defining characteristic of spear phishing.",
+               wrong:"The correct answer is B. The flashcard 'Targeted Information Use' described how attackers gather publicly available information (OSINT) to craft targeted, believable messages. This research-driven personalisation is what distinguishes spear phishing from generic mass campaigns."}},
+          {q:"What is 'OSINT' (Open-Source Intelligence)?",
+           opts:["A new antivirus program.","A secure operating system.","The process of gathering public information (from social media, etc.) to create a spear phish.","A government-only email system."],correct:2,
+           fb:{right:"Correct! The flashcard 'Targeted Information Use' covered this concept: attackers gather publicly available information — from social media, LinkedIn, company websites — to craft messages that appear relevant and trustworthy. This process is called open-source intelligence.",
+               wrong:"The correct answer is C. The flashcard 'Targeted Information Use' explained that attackers gather publicly available information to craft targeted messages. OSINT is the name for this intelligence-gathering process using public sources."}}
+        ]
+      },
+
+      /* ── Section 3: Influence ── */
+      {
+        title:"Influence",
+        quizId:"2200",
+        quizLabel:"Quiz 2200 · Influence",
+        cards:[
+          {title:"Reciprocity",
+           reading:"People feel compelled to return a favor, which attackers exploit by offering something first to encourage compliance.",
+           bullets:null,bulletTail:null},
+          {title:"Authority",
+           reading:"Messages that appear to come from powerful or official figures increase the likelihood that people will follow instructions.",
+           bullets:null,bulletTail:null},
+          {title:"Social Proof",
+           reading:"Individuals are more likely to trust something if they believe others are also doing it or accepting it.",
+           bullets:null,bulletTail:null},
+          {title:"Emotional Appeals",
+           reading:"Messages may use sympathy, fear, or urgency to influence behavior and reduce critical thinking.",
+           bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"What is the 'Reciprocity' principle of influence?",
+           opts:["Offering a small gift or favor to make the target feel obligated to comply.","Showing that many other people are already doing it.","Pretending to be a boss or CEO.","Creating a 'limited time offer'."],correct:0,
+           fb:{right:"Correct! The flashcard 'Reciprocity' explained this: people feel compelled to return a favor, which attackers exploit by offering something first to encourage compliance. The upfront gift creates a sense of obligation that makes the follow-up request harder to refuse.",
+               wrong:"The correct answer is A. The flashcard 'Reciprocity' covered this: people feel compelled to return a favor. Attackers offer something first — a free tool, a helpful resource — to create a sense of obligation that makes the target more likely to comply with the real request."}},
+          {q:"What is the 'Authority' principle of influence?",
+           opts:["Offering a small gift or favor.","Showing that many other people are doing it.","Using the power of a boss, CEO, or law enforcement to make people comply.","Creating a 'limited time offer'."],correct:2,
+           fb:{right:"Correct! The flashcard 'Authority' stated that messages appearing to come from powerful or official figures increase the likelihood that people will follow instructions. Impersonating IT, executives, or law enforcement exploits this ingrained tendency.",
+               wrong:"The correct answer is C. The flashcard 'Authority' explained that messages from powerful or official figures increase compliance. Attackers impersonate these roles because people are conditioned to follow authority without questioning."}},
+          {q:"What is 'Social Proof' as a principle of influence?",
+           opts:["Offering a small gift or favor.","Showing that many other people ('the crowd') are already doing it.","Pretending to be a boss or CEO.","Creating a 'limited time offer'."],correct:1,
+           fb:{right:"Correct! The flashcard 'Social Proof' explained exactly this: individuals are more likely to trust something if they believe others are also doing it or accepting it. Phrases like 'everyone in your city is donating' exploit this tendency.",
+               wrong:"The correct answer is B. The flashcard 'Social Proof' covered this: people are more likely to trust something if they believe others are doing it. Attackers imply that the crowd is already complying to normalise and encourage the target's own compliance."}},
+          {q:"An email for a 'charity' shows pictures of victims and says 'everyone in your city is donating'. What *two* principles is this using?",
+           opts:["Authority and Scarcity","Compassion (Emotion) and Social Proof","Reciprocity and Liking","Greed and Urgency"],correct:1,
+           fb:{right:"Correct! The victim photos use the 'Emotional Appeals' principle from the flashcard — sympathy reduces critical thinking. The 'everyone is donating' claim uses 'Social Proof'. Together they create a powerful combination that bypasses both emotional and rational defences.",
+               wrong:"The correct answer is B. The flashcard 'Emotional Appeals' covers how sympathy and emotional imagery reduce critical thinking, while the 'Social Proof' flashcard covers the 'everyone is doing it' tactic. This combination is especially effective."}}
+        ]
+      },
+
+      /* ── Section 4: Advanced Vectors ── */
+      {
+        title:"Advanced Vectors",
+        quizId:"2300",
+        quizLabel:"Quiz 2300 · Advanced Vectors",
+        cards:[
+          {title:"Multi-Tiered Attacks",
+           reading:"Some attacks combine multiple methods, such as emails followed by phone calls, to increase credibility and success.",
+           bullets:null,bulletTail:null},
+          {title:"Email Spoofing",
+           reading:"Attackers manipulate sender information so that a message appears to come from a trusted person or organization.",
+           bullets:null,bulletTail:null},
+          {title:"Display Name Deception",
+           reading:"Even if the sender name looks familiar, the actual email address may reveal that the message is not legitimate.",
+           bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"What is a 'Multi-tiered Attack'?",
+           opts:["An attack that uses many different colors.","An attack that sends 100 emails at once.","An attack that combines vectors (e.g., a phishing email followed by a 'Vishing' phone call).","An attack that targets a multi-story building."],correct:2,
+           fb:{right:"Correct! The flashcard 'Multi-Tiered Attacks' explained this directly: some attacks combine multiple methods, such as emails followed by phone calls, to increase credibility and success. Each touchpoint makes the next one feel more legitimate.",
+               wrong:"The correct answer is C. The flashcard 'Multi-Tiered Attacks' described how combining multiple methods — like an email followed by a phone call — increases credibility. Each additional interaction makes the overall attack more convincing."}},
+          {q:"True or False: The RSA breach was a 'Level 4' spear phish that used a simple, believable pretext (a recruitment plan) and a malicious attachment.",
+           opts:["TRUE","FALSE"],correct:0,
+           fb:{right:"Correct! The 2011 RSA Security breach is a landmark example of a multi-vector, targeted spear phish. A convincing email titled 'Recruitment Plan' carried a malicious Excel attachment that exploited a zero-day vulnerability, ultimately compromising RSA's SecurID infrastructure.",
+               wrong:"TRUE. The RSA breach is one of the most cited real-world examples of advanced spear phishing. A targeted email with a believable pretext and a malicious attachment led to a breach that compromised RSA's entire SecurID two-factor authentication system."}},
+          {q:"What is 'Email Spoofing'?",
+           opts:["When the 'From' address is faked to look like someone you trust.","An email that has an '.exe' attachment.","A 'Level-1' phish that has bad grammar.","A phone call (Vishing) from a fake number."],correct:0,
+           fb:{right:"Correct! The flashcard 'Email Spoofing' defined this exactly: attackers manipulate sender information so that a message appears to come from a trusted person or organization. Always check the actual email address — not just the display name.",
+               wrong:"The correct answer is A. The flashcard 'Email Spoofing' explained that attackers manipulate sender information to make messages appear to come from trusted sources. The display name is trivial to fake — always reveal the actual address behind it."}},
+          {q:"An attacker spoofs your boss's email *display name*, but the *actual email address* is 'ceo@gmail.com'. This is an example of:",
+           opts:["Email Spoofing","Vishing","Smishing","A legitimate email"],correct:0,
+           fb:{right:"Correct! The flashcard 'Display Name Deception' warned that even if the sender name looks familiar, the actual email address may reveal the message is not legitimate. Here, 'ceo@gmail.com' is not a company domain — expanding the sender field exposes the deception.",
+               wrong:"The correct answer is A — Email Spoofing. The flashcard 'Display Name Deception' covered this: even when a sender name appears familiar, the actual email address may reveal the true source. Always expand the sender field to check the address behind the display name."}}
+        ]
+      },
+
+      /* ── Section 5: Defense ── */
+      {
+        title:"Defense",
+        quizId:"2400",
+        quizLabel:"Quiz 2400 · Defense",
+        cards:[
+          {title:"Encrypted Connections (HTTPS)",
+           reading:"Encryption protects data during transmission but does not confirm that the website itself is safe or authentic.",
+           bullets:null,bulletTail:null},
+          {title:"Phishing Link Disguise",
+           reading:"Malicious links are often presented as familiar or legitimate pages to trick users into interacting with them.",
+           bullets:null,bulletTail:null},
+          {title:"Email Address Verification",
+           reading:"The most reliable way to check an email's legitimacy is to examine the domain after the '@' symbol.",
+           bullets:null,bulletTail:null},
+          {title:"Immediate Reporting",
+           reading:"If a suspicious link is clicked or a message seems unsafe, reporting it quickly helps reduce potential damage and protects others.",
+           bullets:null,bulletTail:null}
+        ],
+        quiz:[
+          {q:"What does the 'https://' in a web address mean?",
+           opts:["The website is always safe and trustworthy.","The connection to the website is encrypted.","The website is government owned.","The website is collecting user data."],correct:1,
+           fb:{right:"Correct! The flashcard 'Encrypted Connections (HTTPS)' stated this clearly: encryption protects data during transmission but does not confirm that the website itself is safe or authentic. Phishing sites use HTTPS certificates routinely.",
+               wrong:"The correct answer is B. The flashcard 'Encrypted Connections (HTTPS)' explained that encryption protects data in transit only — it does not verify the website's legitimacy or intentions. A padlock is not a safety guarantee."}},
+          {q:"What is a phishing link most likely disguised as?",
+           opts:["A 'Cloned Website' (fake login page).","A funny video.","A music playlist.","No links, just information in the email."],correct:0,
+           fb:{right:"Correct! The flashcard 'Phishing Link Disguise' explained that malicious links are often presented as familiar or legitimate pages to trick users into interacting with them. A cloned login page is the most common destination — designed to harvest credentials invisibly.",
+               wrong:"The correct answer is A. The flashcard 'Phishing Link Disguise' stated that malicious links are often presented as familiar or legitimate pages. A cloned login page is the most common destination, harvesting credentials without the victim realising."}},
+          {q:"Which part of an email address is the most important to check for legitimacy?",
+           opts:["The sender's display name (e.g., 'PayPal Support').","The domain name after the '@' (e.g., '@paypal.com').","The subject line.","The time it was sent."],correct:1,
+           fb:{right:"Correct! The flashcard 'Email Address Verification' stated exactly this: the most reliable way to check an email's legitimacy is to examine the domain after the '@' symbol. Display names, subject lines, and timestamps are all trivial to fake.",
+               wrong:"The correct answer is B. The flashcard 'Email Address Verification' explained that the domain after '@' is the most reliable legitimacy check. Display names, subject lines, and timestamps can all be easily fabricated by attackers."}},
+          {q:"You accidentally clicked on a phishing link. What is the next best action?",
+           opts:["Do nothing and hope it was harmless.","Enter fake information to confuse the scammer.","Immediately report it to your IT/security department.","Forward the link to your friends to see if it's bad for them too."],correct:2,
+           fb:{right:"Correct! The flashcard 'Immediate Reporting' stated this directly: if a suspicious link is clicked or a message seems unsafe, reporting it quickly helps reduce potential damage and protects others. Time is critical — your team needs to act fast.",
+               wrong:"The correct answer is C. The flashcard 'Immediate Reporting' explained that quick reporting helps reduce potential damage and protects others. Staying silent (A) or not acting (B, D) allows the breach to develop unchecked."}}
+        ]
+      }
+
+    ]
+  }
+];
+
+/* ═══════════════════════════════════
+   STATE
+═══════════════════════════════════ */
+let curLvl=0, curSec=0, curCard=0;
+let seenCards=[];
+let curQ=0, secScore=0, levelScore=0;
+let answered=false;
+let allScores=[0,0,0];
+let playerName='';
+let answerLog=[];
+
+/* ═══════════════════════════════════
+   PROGRESS
+═══════════════════════════════════ */
+function allSections(){
+  const out=[];
+  LEVELS.forEach((L,li)=>L.sections.forEach((S,si)=>out.push({li,si,S})));
+  return out;
+}
+function totalSteps(){
+  return allSections().reduce((a,{S})=>a+S.cards.length+S.quiz.length,0);
+}
+function stepsBefore(lvl,sec,phase,idx){
+  let s=0;
+  allSections().forEach(({li,si,S})=>{
+    if(li<lvl||(li===lvl&&si<sec)){s+=S.cards.length+S.quiz.length;return;}
+    if(li===lvl&&si===sec){
+      if(phase==='quiz') s+=S.cards.length;
+      s+=idx;
+    }
+  });
+  return s;
+}
+function buildDots(){
+  const el=document.getElementById('stepDots');el.innerHTML='';
+  allSections().forEach(({li,si,S})=>{
+    S.cards.forEach((_,ci)=>{const d=document.createElement('div');d.className='step-dot';d.id='dc-'+li+'-'+si+'-'+ci;el.appendChild(d);});
+    S.quiz.forEach((_,qi)=>{const d=document.createElement('div');d.className='step-dot';d.id='dq-'+li+'-'+si+'-'+qi;el.appendChild(d);});
+  });
+}
+function updateProgress(lvl,sec,phase,idx){
+  const done=stepsBefore(lvl,sec,phase,idx);
+  const total=totalSteps();
+  const pct=Math.round((done/total)*100);
+  const L=LEVELS[lvl];const S=L.sections[sec];
+  const lbl=phase==='cards'?L.label+' · '+S.title+' ('+S.cards.length+' cards)':S.quizLabel+' · Q'+(idx+1)+'/'+S.quiz.length;
+  document.getElementById('progLabel').textContent=lbl;
+  document.getElementById('progPct').textContent=pct+'%';
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progFill').style.background=L.accent;
+  let step=0;
+  allSections().forEach(({li,si,S:SS})=>{
+    SS.cards.forEach((_,ci)=>{
+      const d=document.getElementById('dc-'+li+'-'+si+'-'+ci);if(!d)return;
+      d.className='step-dot'+(step<done?' done':step===done?' active':'');d.style.background='';step++;
+    });
+    SS.quiz.forEach((_,qi)=>{
+      const d=document.getElementById('dq-'+li+'-'+si+'-'+qi);if(!d)return;
+      d.className='step-dot';d.style.background='';
+      if(step<done){d.classList.add('qdone');d.style.background=LEVELS[li].accent;}
+      else if(step===done){d.classList.add('qactive');d.style.background=LEVELS[li].accent;}
+      step++;
+    });
+  });
+}
+
+/* ═══════════════════════════════════
+   SCREEN / TAG / CRUMB
+═══════════════════════════════════ */
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function setTag(txt,bg,col){const t=document.getElementById('phaseTag');t.textContent=txt;t.style.background=bg;t.style.color=col;}
+
+function renderCrumb(containerId){
+  const el=document.getElementById(containerId);
+  if(!el) return;
+  const L=LEVELS[curLvl];
+  if(L.sections.length<=1){el.innerHTML='';return;}
+  el.innerHTML='';
+  L.sections.forEach((S,si)=>{
+    if(si>0){const sep=document.createElement('span');sep.className='sec-crumb-sep';sep.textContent='›';el.appendChild(sep);}
+    const item=document.createElement('span');
+    item.className='sec-crumb-item'+(si===curSec?' active':si<curSec?' done':'');
+    item.textContent=S.title;
+    el.appendChild(item);
+  });
+}
+
+/* ═══════════════════════════════════
+   START
+═══════════════════════════════════ */
+function onNameInput(){
+  const val=document.getElementById('playerNameInput').value.trim();
+  document.getElementById('btnBegin').disabled=val.length===0;
+  document.getElementById('nameErr').style.display='none';
+}
+
+function startTraining(){
+  const val=document.getElementById('playerNameInput').value.trim();
+  if(!val){
+    document.getElementById('nameErr').style.display='block';
+    document.getElementById('playerNameInput').focus();
+    return;
+  }
+  playerName=val;
+  answerLog=[];
+  buildDots();
+  document.getElementById('progArea').style.display='block';
+  curLvl=0;curSec=0;levelScore=0;
+  startSection(0,0);
+}
+
+function startSection(lvl,sec,preserveState){
+  curLvl=lvl;curSec=sec;secScore=0;
+  const L=LEVELS[lvl];const S=L.sections[sec];
+  if(!preserveState){curCard=0;seenCards=new Array(S.cards.length).fill(false);}
+  setTag(L.sections.length>1?'L'+L.id+' · '+S.title:L.label,L.accentLt,L.accentDk);
+  document.getElementById('fcIcon').style.background=L.accentLt;
+  document.getElementById('fcIcon').style.color=L.accent;
+  document.getElementById('fcBannerTitle').textContent=L.label+' — '+S.title;
+  document.getElementById('fcBannerSub').textContent=S.cards.length+' cards · tap to flip';
+  renderCrumb('secCrumb');
+  renderCard();show('sCards');
+}
+
+/* ═══════════════════════════════════
+   FLASHCARDS
+═══════════════════════════════════ */
+function buildReadHTML(c){
+  if(!c.bullets) return {text:c.reading,html:null};
+  let h='<span>'+c.reading+'</span><ul>';
+  c.bullets.forEach(b=>{h+='<li>'+b+'</li>';});
+  h+='</ul>';
+  if(c.bulletTail) h+='<span class="bullet-tail">'+c.bulletTail+'</span>';
+  return {text:null,html:h};
+}
+
+function renderCard(){
+  const L=LEVELS[curLvl];const S=L.sections[curSec];const c=S.cards[curCard];const total=S.cards.length;
+  const seenN=seenCards.filter(Boolean).length;
+  document.getElementById('fcNavLabel').textContent='Card '+(curCard+1)+' of '+total;
+  document.getElementById('fcSeenLabel').textContent=seenN===total?'✓ All read':seenN+' of '+total+' read';
+  const chip=S.title.toUpperCase();
+  document.getElementById('fcFrontStg').textContent=chip;
+  document.getElementById('fcFrontTitle').textContent=c.title;
+  document.getElementById('fcBackStg').textContent=chip;
+  const body=document.getElementById('fcBackBody');
+  const{text,html}=buildReadHTML(c);
+  if(html) body.innerHTML=html; else body.textContent=text;
+  document.getElementById('flipCard').classList.remove('flipped');
+  document.getElementById('btnFcPrev').disabled=curCard===0;
+  document.getElementById('btnFcNext').disabled=curCard===total-1;
+  const allSeen=seenCards.every(Boolean);
+  const tip=document.getElementById('fcTip');const btn=document.getElementById('btnGoQuiz');
+  if(allSeen){tip.textContent='All cards read — start the quiz when you\'re ready.';btn.disabled=false;}
+  else{tip.textContent='Flip each card to read it, then you can start the quiz.';btn.disabled=true;}
+  renderFcDots();updateProgress(curLvl,curSec,'cards',curCard);
+}
+
+function renderFcDots(){
+  const total=LEVELS[curLvl].sections[curSec].cards.length;
+  const el=document.getElementById('fcDots');el.innerHTML='';
+  for(let i=0;i<total;i++){
+    const d=document.createElement('div');
+    d.className='fc-dot'+(i===curCard?' cur':(seenCards[i]?' seen':''));
+    el.appendChild(d);
+  }
+}
+
+function flipCard(){
+  const card=document.getElementById('flipCard');const was=card.classList.contains('flipped');
+  card.classList.toggle('flipped');
+  if(!was&&!seenCards[curCard]){
+    seenCards[curCard]=true;
+    const seenN=seenCards.filter(Boolean).length;const total=LEVELS[curLvl].sections[curSec].cards.length;
+    document.getElementById('fcSeenLabel').textContent=seenN===total?'✓ All read':seenN+' of '+total+' read';
+    if(seenCards.every(Boolean)){
+      document.getElementById('fcTip').textContent='All cards read — start the quiz when you\'re ready.';
+      document.getElementById('btnGoQuiz').disabled=false;
+    }
+    renderFcDots();
+  }
+}
+
+function navCard(dir){
+  const total=LEVELS[curLvl].sections[curSec].cards.length;
+  if(dir===1&&curCard<total-1){curCard++;renderCard();}
+  if(dir===-1&&curCard>0){curCard--;renderCard();}
+}
+
+/* ═══════════════════════════════════
+   QUIZ
+═══════════════════════════════════ */
+function goSectionQuiz(){
+  curQ=0;secScore=0;answered=false;
+  const L=LEVELS[curLvl];const S=L.sections[curSec];
+  setTag(S.quizLabel,L.accentLt,L.accentDk);
+  document.getElementById('qIcon').style.background=L.accentLt;
+  document.getElementById('qIcon').style.color=L.accent;
+  document.getElementById('qBannerTitle').textContent=S.quizLabel;
+  document.getElementById('qBannerSub').textContent=S.quiz.length+' questions · immediate feedback';
+  renderCrumb('quizCrumb');
+  renderQ();show('sQuiz');
+}
+
+function renderQ(){
+  const L=LEVELS[curLvl];const S=L.sections[curSec];const q=S.quiz[curQ];const total=S.quiz.length;
+  answered=false;
+  document.getElementById('qSectionLbl').textContent=S.quizLabel;
+  document.getElementById('qCounter').textContent='Question '+(curQ+1)+' of '+total;
+  document.getElementById('qText').textContent=q.q;
+
+  /* Message context box */
+  let msgEl=document.getElementById('qMsgBox');
+  if(!msgEl){
+    msgEl=document.createElement('div');msgEl.id='qMsgBox';
+    const qTextEl=document.getElementById('qText');
+    qTextEl.parentNode.insertBefore(msgEl,qTextEl);
+  }
+  if(q.msgBox){
+    msgEl.innerHTML=buildMsgBox(q.msgBox);
+    msgEl.style.display='block';
+  } else {
+    msgEl.innerHTML='';msgEl.style.display='none';
+  }
+
+  /* Multi-correct note */
+  let multiEl=document.getElementById('qMultiNote');
+  if(!multiEl){
+    multiEl=document.createElement('div');multiEl.id='qMultiNote';
+    const optsEl=document.getElementById('qOpts');
+    optsEl.parentNode.insertBefore(multiEl,optsEl);
+  }
+  if(q.multiCorrect){
+    multiEl.className='multi-note';
+    multiEl.textContent='Note: more than one answer may be correct — select the one that best applies.';
+    multiEl.style.display='block';
+  } else {
+    multiEl.style.display='none';
+  }
+
+  const opts=document.getElementById('qOpts');opts.innerHTML='';
+  q.opts.forEach((opt,i)=>{
+    const btn=document.createElement('button');btn.className='opt';
+    btn.innerHTML='<span class="opt-ltr">'+LETTERS[i]+'</span><span>'+opt+'</span>';
+    btn.onclick=()=>answer(i);opts.appendChild(btn);
+  });
+  document.getElementById('qFeedback').style.display='none';
+  document.getElementById('qFeedback').className='feedback';
+  document.getElementById('btnNextQ').style.display='none';
+  document.getElementById('btnSectionEnd').style.display='none';
+  updateProgress(curLvl,curSec,'quiz',curQ);
+}
+
+function buildMsgBox(mb){
+  if(mb.type==='sms'){
+    return '<div class="msg-box sms"><div class="msg-box-label">📱 SMS / Text Message</div><div class="sms-bubble">'+mb.content+'</div></div>';
+  }
+  if(mb.type==='email'){
+    const body=mb.content.replace(/\n/g,'<br>');
+    return '<div class="msg-box email"><div class="msg-box-label">✉️ Email</div>'
+      +(mb.from?'<div class="email-field">From: <span>'+mb.from+'</span></div>':'')
+      +(mb.subject?'<div class="email-field">Subject: <span>'+mb.subject+'</span></div>':'')
+      +'<div class="email-body">'+body+'</div></div>';
+  }
+  return '<div class="msg-box"><div class="msg-box-label">Message</div>'+mb.content+'</div>';
+}
+
+function answer(idx){
+  if(answered) return;answered=true;
+  const L=LEVELS[curLvl];
+  const S=L.sections[curSec];
+  const q=S.quiz[curQ];
+  const isRight=q.multiCorrect ? q.multiCorrect.includes(idx) : idx===q.correct;
+  if(isRight) secScore++;
+
+  /* Log this answer */
+  const correctIdxs=q.multiCorrect ? q.multiCorrect : [q.correct];
+  answerLog.push({
+    lvl:      curLvl+1,
+    lvlLabel: L.label,
+    lvlAccent:L.accent,
+    secTitle: S.title,
+    quizId:   S.quizId,
+    qNum:     curQ+1,
+    qText:    q.q,
+    chosenIdx:idx,
+    chosenLetter: LETTERS[idx],
+    chosenText:   q.opts[idx],
+    isRight,
+    correctLetters: correctIdxs.map(i=>LETTERS[i]).join(' / '),
+    correctTexts:   correctIdxs.map(i=>q.opts[i]),
+    multi: !!q.multiCorrect
+  });
+
+  document.querySelectorAll("#qOpts .opt").forEach((btn,i)=>{
+    btn.disabled=true;
+    const isCor=q.multiCorrect ? q.multiCorrect.includes(i) : i===q.correct;
+    if(isCor) btn.classList.add("correct");
+    else if(i===idx&&!isRight) btn.classList.add("wrong");
+    else btn.classList.add("dim");
+  });
+  const fb=document.getElementById('qFeedback');fb.style.display='block';
+  fb.className='feedback '+(isRight?'ok':'ko');
+  document.getElementById('fbLbl').textContent=isRight?'✓ Correct':'✗ Not quite';
+  document.getElementById('fbTxt').textContent=isRight?q.fb.right:q.fb.wrong;
+  const total=S.quiz.length;
+  if(curQ<total-1){
+    document.getElementById('btnNextQ').style.display='inline-flex';
+  } else {
+    const isLastSec=curSec===L.sections.length-1;
+    const btn=document.getElementById('btnSectionEnd');
+    btn.style.display='inline-flex';
+    btn.textContent=isLastSec?'Finish Level '+L.id+' →':'Next Section →';
+  }
+}
+
+function nextQ(){curQ++;renderQ();}
+
+/* ═══════════════════════════════════
+   END SECTION QUIZ
+═══════════════════════════════════ */
+function endSectionQuiz(){
+  const L=LEVELS[curLvl];
+  const S=L.sections[curSec];
+  const isLastSec=curSec===L.sections.length-1;
+  const sectionMin = S.sectionPassMark !== undefined ? S.sectionPassMark : SECTION_PASS;
+  const passed=secScore>=sectionMin;
+
+  /* Always show the section-done screen — with pass or fail content */
+  const ring=document.getElementById('sdRing');
+  const passArea=document.getElementById('sdPassArea');
+  const failArea=document.getElementById('sdFailArea');
+
+  document.getElementById('sdScore').textContent='You scored '+secScore+' / '+S.quiz.length+' on Quiz '+S.quizId;
+
+  if(passed){
+    levelScore+=secScore;
+    ring.style.background=L.accentLt;
+    ring.textContent='✓';
+    ring.style.color=L.accent;
+
+    if(!isLastSec){
+      const nextS=L.sections[curSec+1];
+      document.getElementById('sdTitle').textContent=S.title+' — Passed!';
+      document.getElementById('sdNextTitle').textContent=nextS.title;
+      document.getElementById('sdNextDesc').textContent=nextS.cards.length+' reading cards · Quiz '+nextS.quizId;
+      document.getElementById('sdNext').style.display='block';
+    } else {
+      document.getElementById('sdTitle').textContent=S.title+' — Passed!';
+      document.getElementById('sdNext').style.display='none';
+      allScores[curLvl]=levelScore;
+    }
+    passArea.style.display='block';
+    failArea.style.display='none';
+
+    /* If last section and passed, change button to go to bridge */
+    const contBtn=passArea.querySelector('button');
+    if(isLastSec){
+      contBtn.textContent='See Level Results →';
+      contBtn.onclick=showBridge;
+    } else {
+      contBtn.textContent='Continue →';
+      contBtn.onclick=advanceSection;
+    }
+  } else {
+    ring.style.background='#FCEBEB';
+    ring.textContent='✗';
+    ring.style.color='#E24B4A';
+    document.getElementById('sdTitle').textContent=S.title+' — Not Passed';
+    document.getElementById('sdFailMsg').textContent=
+      'You scored '+secScore+'/'+S.quiz.length+' on Quiz '+S.quizId+'. You need at least '+sectionMin+'/'+S.quiz.length+' to continue. Review the flashcards and retake the quiz.';
+    passArea.style.display='none';
+    failArea.style.display='block';
+  }
+  show('sSectionDone');
+}
+
+function sdRetryCards(){
+  curCard=0;
+  seenCards=new Array(LEVELS[curLvl].sections[curSec].cards.length).fill(false);
+  startSection(curLvl,curSec,false);
+}
+function sdRetryQuiz(){
+  secScore=0;
+  goSectionQuiz();
+}
+
+function advanceSection(){
+  curSec++;
+  secScore=0;
+  startSection(curLvl,curSec);
+}
+
+/* ═══════════════════════════════════
+   BRIDGE
+═══════════════════════════════════ */
+function showBridge(){
+  const L=LEVELS[curLvl];
+  const total=L.sections.reduce((a,S)=>a+S.quiz.length,0);
+  const score=allScores[curLvl];
+  const passed=score>=L.passMark;
+
+  document.getElementById('bridgeScoreNum').textContent=score;
+  document.getElementById('bridgeScoreOf').textContent='/ '+total+' correct';
+  const chip=document.getElementById('bridgePassChip');
+  chip.textContent=passed?'PASSED':'FAILED';chip.className='pass-chip '+(passed?'passed':'failed');
+
+  if(passed){
+    const emojis=['🎯','🔍','🏆'];
+    document.getElementById('bridgeIcon').textContent=emojis[curLvl]||'🎯';
+    document.getElementById('bridgeTitle').textContent='Level '+L.id+' Passed!';
+    let msg;
+    if(score===total) msg='Perfect score — every question correct.';
+    else if(score===L.passMark) msg='Just made the pass mark. Consider reviewing the flashcards before moving on.';
+    else msg='Well done. You met the pass mark for Level '+L.id+'.';
+    document.getElementById('bridgeMsg').textContent=msg;
+    document.getElementById('failCard').style.display='none';
+    document.getElementById('failOptions').style.display='none';
+    const isLast=curLvl===LEVELS.length-1;
+    const preview=document.getElementById('nextPreview');
+    if(isLast){
+      preview.style.display='none';
+      document.getElementById('btnBridgeCont').textContent='See Final Results →';
+    } else {
+      preview.style.display='block';
+      document.getElementById('nextTitle').textContent=LEVELS[curLvl+1].label;
+      document.getElementById('nextDesc').textContent=L.nextDesc;
+      document.getElementById('btnBridgeCont').textContent='Start Level '+(curLvl+2)+' →';
+    }
+    document.getElementById('btnBridgeCont').style.display='inline-flex';
+    setTag('Level '+L.id+' Passed',L.accentLt,L.accentDk);
+  } else {
+    document.getElementById('bridgeIcon').textContent='❌';
+    document.getElementById('bridgeTitle').textContent='Level '+L.id+' — Not Passed';
+    document.getElementById('bridgeMsg').textContent='You scored '+score+'/'+total+'. The minimum pass mark is '+L.passMark+'/'+total+'. You must reach this score to proceed.';
+    document.getElementById('failCard').style.display='block';
+    document.getElementById('failMsg').textContent='You need at least '+L.passMark+' out of '+total+' overall to pass Level '+L.id+' (minimum '+SECTION_PASS+'/4 per section). Please review all flashcards and retake the quizzes.';
+    document.getElementById('failOptions').style.display='flex';
+    document.getElementById('nextPreview').style.display='none';
+    document.getElementById('btnBridgeCont').style.display='none';
+    setTag('Level '+L.id+' — Not Passed','#FCEBEB','#791F1F');
+  }
+  show('sBridge');
+}
+
+function continueFromBridge(){
+  if(curLvl<LEVELS.length-1){
+    curLvl++;curSec=0;levelScore=0;
+    startSection(curLvl,0);
+  } else {
+    showFinal();
+  }
+}
+
+function retryLevel(){
+  levelScore=0;allScores[curLvl]=0;curSec=0;
+  startSection(curLvl,0);
+}
+function retryQuizOnly(){
+  /* restart from first section's quiz of this level */
+  levelScore=0;allScores[curLvl]=0;curSec=0;
+  goSectionQuiz();
+}
+
+/* ═══════════════════════════════════
+   FINAL
+═══════════════════════════════════ */
+function showFinal(){
+  const grid=document.getElementById('scoreGrid');grid.innerHTML='';
+  let totalRight=0,totalQ=0;
+  LEVELS.forEach((L,i)=>{
+    const sc=allScores[i]||0;
+    const tot=L.sections.reduce((a,S)=>a+S.quiz.length,0);
+    totalRight+=sc;totalQ+=tot;
+    const passed=sc>=L.passMark;
+    const card=document.createElement('div');card.className='score-card';
+    card.innerHTML='<div class="sc-num" style="color:'+L.accent+'">'+sc+'/'+tot+'</div><div class="sc-lbl">Level '+L.id+'</div><div class="sc-status" style="color:'+(passed?'#1D9E75':'#E24B4A')+'">'+(passed?'✓ Passed':'✗ Failed')+'</div>';
+    grid.appendChild(card);
+  });
+  document.getElementById('finalScore').textContent=totalRight+'/'+totalQ+' ('+Math.round((totalRight/totalQ)*100)+'%)';
+  document.getElementById('certPlayerName').textContent=playerName;
+  setTag('Training Complete','#EAF3DE','#27500A');
+  show('sFinal');
+}
+
+function showResults(){
+  const totalRight=answerLog.filter(a=>a.isRight).length;
+  const totalQ=answerLog.length;
+
+  /* Summary pills */
+  document.getElementById('resultsPlayerBadge').textContent='👤 '+playerName;
+  const sumEl=document.getElementById('resultsSummary');
+  sumEl.innerHTML=
+    '<span class="res-sum-pill correct">'+totalRight+' correct</span>'+
+    '<span class="res-sum-pill wrong">'+(totalQ-totalRight)+' incorrect</span>'+
+    '<span class="res-sum-pill" style="background:var(--gray50);color:var(--gray600)">'+totalQ+' total</span>';
+
+  /* Build results body */
+  const body=document.getElementById('resultsBody');
+  body.innerHTML='';
+
+  let curLvlId=0, curSecKey='';
+  let lvlDiv=null, secDiv=null;
+  let lvlCorrect=0, lvlTotal=0, secCorrect=0, secTotal=0;
+  let lvlCorrectTracker={}, secCorrectTracker={};
+
+  /* Pre-compute per-section and per-level counts */
+  const lvlStats={}, secStats={};
+  answerLog.forEach(a=>{
+    const lk='L'+a.lvl;
+    const sk=lk+'_'+a.secTitle+'_'+a.quizId;
+    if(!lvlStats[lk]) lvlStats[lk]={right:0,total:0,label:a.lvlLabel,accent:a.lvlAccent};
+    if(!secStats[sk]) secStats[sk]={right:0,total:0,title:a.secTitle,quizId:a.quizId};
+    lvlStats[lk].total++;secStats[sk].total++;
+    if(a.isRight){lvlStats[lk].right++;secStats[sk].right++;}
+  });
+
+  let renderedLvls=new Set(), renderedSecs=new Set();
+
+  answerLog.forEach((a,i)=>{
+    const lk='L'+a.lvl;
+    const sk=lk+'_'+a.secTitle+'_'+a.quizId;
+
+    /* Level header */
+    if(!renderedLvls.has(lk)){
+      renderedLvls.add(lk);
+      const stat=lvlStats[lk];
+      const lhdr=document.createElement('div');
+      lhdr.className='results-level-hdr';
+      lhdr.style.background=a.lvlAccent;
+      lhdr.innerHTML='<h3>'+a.lvlLabel+'</h3><span class="lh-score">'+stat.right+' / '+stat.total+' correct</span>';
+      body.appendChild(lhdr);
+    }
+
+    /* Section header */
+    if(!renderedSecs.has(sk)){
+      renderedSecs.add(sk);
+      const stat=secStats[sk];
+      const shdr=document.createElement('div');
+      shdr.className='results-section-hdr';
+      shdr.innerHTML='<span class="sh-title">Quiz '+a.quizId+' · '+a.secTitle+'</span><span class="sh-score">'+stat.right+'/'+stat.total+' correct  ·  pass '+stat.right+'/'+stat.total+'</span>';
+      body.appendChild(shdr);
+    }
+
+    /* Question row */
+    const row=document.createElement('div');
+    row.className='result-row '+(a.isRight?'rr-correct':'rr-wrong');
+
+    let iconHTML='<div class="rr-icon">'+(a.isRight?'✓':'✗')+'</div>';
+
+    let bodyHTML='<div class="rr-body">';
+    bodyHTML+='<div class="rr-qnum">Q'+a.qNum+'  ·  Quiz '+a.quizId+'</div>';
+    bodyHTML+='<div class="rr-qtext">'+escapeHTML(a.qText)+'</div>';
+
+    if(a.isRight){
+      bodyHTML+='<div class="rr-chosen"><span class="ans-label">Your answer:</span>'+escapeHTML(a.chosenLetter+'.  '+a.chosenText)+'</div>';
+    } else {
+      bodyHTML+='<div class="rr-chosen"><span class="ans-label">You chose:</span>'+escapeHTML(a.chosenLetter+'.  '+a.chosenText)+'</div>';
+      bodyHTML+='<div class="rr-correct-ans"><span class="ans-label">Correct answer:</span>'+escapeHTML(a.correctLetters+'.  '+a.correctTexts.join(' / '))+'</div>';
+    }
+
+    bodyHTML+='</div>';
+    row.innerHTML=iconHTML+bodyHTML;
+    body.appendChild(row);
+  });
+
+  show('sResults');
+}
+
+function escapeHTML(str){
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function restart(){
+  allScores=[0,0,0];levelScore=0;secScore=0;
+  playerName='';answerLog=[];
+  document.getElementById('playerNameInput').value='';
+  document.getElementById('btnBegin').disabled=true;
+  document.getElementById('nameErr').style.display='none';
+  document.getElementById('progArea').style.display='none';
+  setTag('Level 1','#E1F5EE','#085041');
+  show('sWelcome');
+}
+
+/* ═══════════════════════════════════
+   EXCEL DOWNLOAD
+═══════════════════════════════════ */
+function downloadExcel(){
+  const wb = XLSX.utils.book_new();
+  const date = new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+  const totalRight = answerLog.filter(a=>a.isRight).length;
+  const totalQ = answerLog.length;
+  const pct = totalQ ? Math.round(totalRight/totalQ*100) : 0;
+
+  /* ── Sheet 1: Summary ── */
+  const summaryRows = [
+    ['PhishGuard — Phishing Awareness Training Results'],
+    [],
+    ['Participant',   playerName],
+    ['Date',          date],
+    ['Overall Score', totalRight+'/'+totalQ+' ('+pct+'%)'],
+    [],
+    ['Level', 'Total Questions', 'Score', 'Pass Mark', 'Result'],
+  ];
+  LEVELS.forEach((L,i)=>{
+    const sc  = allScores[i]||0;
+    const tot = L.sections.reduce((a,S)=>a+S.quiz.length,0);
+    const passed = sc>=L.passMark;
+    summaryRows.push([L.label, tot, sc+'/'+tot, L.passMark+'/'+tot, passed?'PASSED':'FAILED']);
+  });
+  summaryRows.push(
+    [],
+    ['Section Breakdown','','','',''],
+    ['Level','Section','Quiz ID','Questions','Score'],
+  );
+  LEVELS.forEach(L=>{
+    L.sections.forEach(S=>{
+      const secLogs = answerLog.filter(a=>a.quizId===S.quizId);
+      const secRight = secLogs.filter(a=>a.isRight).length;
+      summaryRows.push([L.label, S.title, S.quizId, secLogs.length, secRight+'/'+secLogs.length]);
+    });
+  });
+
+  const wsSummary = XLSX.utils.aoa_to_sheet(summaryRows);
+  /* Column widths */
+  wsSummary['!cols'] = [{wch:40},{wch:18},{wch:10},{wch:14},{wch:10}];
+  XLSX.utils.book_append_sheet(wb, wsSummary, 'Summary');
+
+  /* ── Sheet 2: Detailed Results ── */
+  const detailRows = [
+    ['Participant: '+playerName, '', '', '', '', '', '', ''],
+    ['Date: '+date, '', '', '', '', '', '', ''],
+    [],
+    ['Level','Section','Quiz ID','Q #','Question','Your Answer','Result','Correct Answer'],
+  ];
+  answerLog.forEach(a=>{
+    const correctFull = a.isRight ? '' : a.correctLetters+'.  '+a.correctTexts.join(' / ');
+    detailRows.push([
+      a.lvlLabel,
+      a.secTitle,
+      a.quizId,
+      'Q'+a.qNum,
+      a.qText,
+      a.chosenLetter+'.  '+a.chosenText,
+      a.isRight?'✓ CORRECT':'✗ INCORRECT',
+      correctFull,
+    ]);
+  });
+
+  const wsDetail = XLSX.utils.aoa_to_sheet(detailRows);
+  wsDetail['!cols'] = [{wch:32},{wch:20},{wch:10},{wch:6},{wch:60},{wch:45},{wch:14},{wch:45}];
+
+  /* Apply green/red fill to Result column (col index 6, rows 5 onwards) */
+  detailRows.forEach((row,ri)=>{
+    if(ri<4) return; // skip header rows
+    const cellRef = XLSX.utils.encode_cell({r:ri, c:6});
+    if(wsDetail[cellRef]){
+      const isCorrect = wsDetail[cellRef].v && wsDetail[cellRef].v.includes('CORRECT');
+      wsDetail[cellRef].s = {
+        fill:{ fgColor:{ rgb: isCorrect ? 'C6EFCE' : 'FFC7CE' } },
+        font:{ bold:true, color:{ rgb: isCorrect ? '276221' : '9C0006' } }
+      };
+    }
+  });
+
+  XLSX.utils.book_append_sheet(wb, wsDetail, 'Detailed Results');
+
+  /* ── Sheet 3: Incorrect Answers Only ── */
+  const wrongLogs = answerLog.filter(a=>!a.isRight);
+  if(wrongLogs.length>0){
+    const wrongRows = [
+      ['Participant: '+playerName+' — Incorrect Answers Only', '','','','','',''],
+      [],
+      ['Level','Section','Quiz ID','Q #','Question','You Chose','Correct Answer'],
+    ];
+    wrongLogs.forEach(a=>{
+      wrongRows.push([
+        a.lvlLabel,
+        a.secTitle,
+        a.quizId,
+        'Q'+a.qNum,
+        a.qText,
+        a.chosenLetter+'.  '+a.chosenText,
+        a.correctLetters+'.  '+a.correctTexts.join(' / '),
+      ]);
+    });
+    const wsWrong = XLSX.utils.aoa_to_sheet(wrongRows);
+    wsWrong['!cols'] = [{wch:32},{wch:20},{wch:10},{wch:6},{wch:60},{wch:45},{wch:45}];
+    XLSX.utils.book_append_sheet(wb, wsWrong, 'Incorrect Answers');
+  }
+
+  /* Download */
+  const safeName = playerName.replace(/[^a-zA-Z0-9_\- ]/g,'').replace(/\s+/g,'_').substring(0,30);
+  XLSX.writeFile(wb, safeName+'_PhishGuard_Results.xlsx');
+}
+
+/* ═══════════════════════════════════
+   BACK & EXIT
+═══════════════════════════════════ */
+function goBack(){
+  if(curCard>0){
+    curCard--;renderCard();
+  } else if(curSec>0){
+    curSec--;
+    curCard=LEVELS[curLvl].sections[curSec].cards.length-1;
+    seenCards=new Array(LEVELS[curLvl].sections[curSec].cards.length).fill(true);
+    startSection(curLvl,curSec,true);
+  } else {
+    /* First card of first section — prompt exit */
+    openExitModal();
+  }
+}
+
+function goBackFromQuiz(){
+  curCard=LEVELS[curLvl].sections[curSec].cards.length-1;
+  seenCards=new Array(LEVELS[curLvl].sections[curSec].cards.length).fill(true);
+  startSection(curLvl,curSec,true);
+}
+
+function openExitModal(){
+  document.getElementById('exitModal').classList.add('open');
+}
+function closeExitModal(){
+  document.getElementById('exitModal').classList.remove('open');
+}
+function confirmExit(){
+  closeExitModal();
+  allScores=[0,0,0];levelScore=0;secScore=0;
+  playerName='';answerLog=[];
+  document.getElementById('playerNameInput').value='';
+  document.getElementById('btnBegin').disabled=true;
+  document.getElementById('nameErr').style.display='none';
+  document.getElementById('progArea').style.display='none';
+  setTag('Level 1','#E1F5EE','#085041');
+  show('sWelcome');
+}
+</script>
+</body>
+</html>
